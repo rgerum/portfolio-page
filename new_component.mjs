@@ -57,7 +57,7 @@ export default ${component_name};
 );
 createFile(comp_folder, component_name + ".module.css", ``);
 
-createFile(comp_folder, component_name + ".stories.jsx", `import ${component_name} from "./${component_name}";
+/*createFile(comp_folder, component_name + ".stories.jsx", `import ${component_name} from "./${component_name}";
 
 const meta = {
   component: ${component_name},
@@ -73,6 +73,6 @@ export const Normal = {
     </${component_name}>
   ),
 };
-`);
+`);*/
 
 console.log(chalk.green(`\nSuccessfully created '${component_name}'!`));

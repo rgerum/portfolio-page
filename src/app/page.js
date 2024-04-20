@@ -1,5 +1,5 @@
-
+import Link from "next/link";
 
 export default function Page() {
-    return "test"
+  return <Link href={"/projects/saenopy"}>Saenopy</Link>;
 }
