@@ -1,6 +1,5 @@
 .wrapper {
-    max-width: 1000px;
-    margin: 0 auto;
+    grid-area: footer;
     padding: 16px;
 
     display: flex;

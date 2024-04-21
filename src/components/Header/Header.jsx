@@ -5,7 +5,10 @@ import Logo from "@/components/Logo";
 function Header() {
   return (
     <header className={styles.header}>
-      <Logo />
+      <div className={styles.inner}>
+        <Logo />
+      </div>
+      <div className={styles.gradient}></div>
     </header>
   );
 }

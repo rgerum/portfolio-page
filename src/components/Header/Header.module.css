@@ -1,5 +1,40 @@
 .header {
+    grid-area: header;
+    width: 100%;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.inner {
     max-width: 1000px;
     margin: 0 auto;
     padding: 16px;
+    padding-bottom: 10px;
+}
+
+.gradient {
+    position: absolute;
+    height: 15px;
+    width: 100%;
+    background-image: linear-gradient(
+            to bottom,
+            hsl(0, 0%, 100%) 0%,
+            hsla(0, 0%, 100%, 0.992) 8.6%,
+            hsla(0, 0%, 100%, 0.97) 16.9%,
+            hsla(0, 0%, 100%, 0.934) 24.9%,
+            hsla(0, 0%, 100%, 0.887) 32.6%,
+            hsla(0, 0%, 100%, 0.83) 39.9%,
+            hsla(0, 0%, 100%, 0.763) 47%,
+            hsla(0, 0%, 100%, 0.689) 53.8%,
+            hsla(0, 0%, 100%, 0.609) 60.4%,
+            hsla(0, 0%, 100%, 0.525) 66.7%,
+            hsla(0, 0%, 100%, 0.437) 72.7%,
+            hsla(0, 0%, 100%, 0.347) 78.6%,
+            hsla(0, 0%, 100%, 0.258) 84.2%,
+            hsla(0, 0%, 100%, 0.169) 89.7%,
+            hsla(0, 0%, 100%, 0.082) 94.9%,
+            hsla(0, 0%, 100%, 0) 100%
+    );
 }

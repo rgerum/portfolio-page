@@ -23,9 +23,11 @@ function RootLayout({ children }) {
   return (
     <html lang="en" className={clsx(mainFont.variable, monoFont.variable)}>
       <body>
-        <Header />
-        <main className={styles.main}>{children}</main>
-        <Footer />
+        <div className={styles.layout}>
+          <Header />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );

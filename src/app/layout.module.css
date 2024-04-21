@@ -1,3 +1,11 @@
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 1000px 1fr;
+    grid-template-areas:
+      'x header xx'
+      'nav main aside'
+      'footer footer footer';
+}
 .main {
     position: relative;
     margin: 0 auto;

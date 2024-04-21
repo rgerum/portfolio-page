@@ -87,14 +87,12 @@ function CustomMDX(props) {
 
 export default async function Page({ params }) {
   const path = params.project_name;
-  console.log("page", params.project_name);
   if (path.endsWith(".js") || path.endsWith(".mdx")) return notFound();
 
   let { data, content } = await getPageData(path);
-  console.log(data);
+
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.spacer} />
+    <>
       <main className={styles.main}>
         <ProjectTitle>{data.title}</ProjectTitle>
         <CustomMDX source={content} />
@@ -102,7 +100,7 @@ export default async function Page({ params }) {
       <aside className={styles.aside}>
         <NavAside headings={getSideHeadings(content)} />
       </aside>
-    </div>
+    </>
   );
 }
 
