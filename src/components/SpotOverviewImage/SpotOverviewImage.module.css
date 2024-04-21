@@ -1,0 +1,84 @@
+.wrapper {
+    position: relative;
+}
+
+.hover_me {
+    color: deeppink;
+    position: absolute;
+    top: 66%;
+    left: 18%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hover_me img {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    aspect-ratio: 1;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+    transition: transform 500ms 500ms, opacity 500ms 300ms;
+    filter: drop-shadow(-5px 2px 7px #d2cece);
+}
+.hover_me:hover img {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(3) translate(70%, -40%);
+    transition: transform 500ms, opacity 500ms 100ms;
+}
+
+.hover_circle {
+    border-radius: 99999999px;
+    border: 2px dashed deeppink;
+    height: 50px;
+    width: 50px;
+    animation: fade 1000ms alternate infinite ease-in-out, rotate linear 60s infinite;
+}
+
+.label {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(100%);
+    font-style: italic;
+    white-space: nowrap;
+    animation: fade 1000ms alternate infinite ease-in-out;
+}
+
+.pointer_device {
+    display: block;
+}
+.tap_device {
+    display: none;
+}
+@media (pointer: coarse) {
+    .pointer_device {
+        display: none;
+    }
+    .tap_device {
+        display: block;
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+
+}

@@ -1,0 +1,41 @@
+---
+title: Atka SPOT
+description: A remote controlled penguin observatory in Antarctica.
+links:
+    publication: https://doi.org/10.1111/2041-210X.12971
+---
+
+Goal
+----
+
+Observing Emperor Penguins in Antarctica is a challenging and time-consuming task
+as the interesting huddling behaviour can only be observed during the harsh weather conditions
+of the Antarctic winter.
+
+Wherefore, we build a remote controlled penguin observatory (**S**ingle **P**enguin **O**bervation and
+**T**racking SPOT) to record footage of
+penguins without the need to be there on the ice in Atka Bay.
+Using a satellite link and a Wi-Fi bridge the
+observatory can be controlled out of our lab in Germany.
+
+<SpotOverviewImage/>
+
+Implementation
+--------------
+
+My task was mainly to implement the web-based interface to control the observatory.
+The challenging part here was that it should work robust even with an unstable and slow
+internet connection. Furthermore, the code should be as simple as possible to ensure stability and
+future maintainability, as debugging during the season is extremely difficult due to the high latencies.
+
+Interface
+---------
+
+The backend is made using a python flask server that connects to the cameras of the observatory.
+The observatory consists of 7 surveillance cameras that together give a panoramic overview over the bay and
+one high resolution camera on a pan-and-tilt unit with video capabilities.
+
+The frontend written mainly in vanilla JS to keep the complexity down, shows the current pictures form the
+surveillance cameras and allows to select a position on one of their images to move the high-resolution camera
+with the pan-and-tilt unit to the target location.
+

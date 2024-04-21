@@ -1,11 +1,13 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 import { getDocsData, getPageData } from "@/helpers/read-files";
 import styles from "./layout.module.css";
 import ProjectTitle from "@/components/ProjectTitle";
+import SpotOverviewImage from "@/components/SpotOverviewImage";
 
 export const dynamic = "force-static";
 export const dynamicParams = true;
@@ -25,7 +27,7 @@ export async function generateMetadata({ params }) {
   let path = params.project_name;
   if (path.endsWith(".js") || path.endsWith(".mdx")) return notFound();
 
-  const { data, content } = await getPageData(path);
+  const { data } = await getPageData(path);
 
   return {
     title: data.title,
@@ -59,14 +61,13 @@ const components = {
     </Link>
   ),
   a: Link,
-  Image: (props) => (
-    <div className={styles.image_wrapper}>{props.children}</div>
-  ),
+  Image: (props) => <Image {...props}>{props.children}</Image>,
   h3: (props) => (
     <h3 {...props} id={save_tag(props.children)}>
       {props.children}
     </h3>
   ),
+  SpotOverviewImage: SpotOverviewImage,
 };
 
 function CustomMDX(props) {
