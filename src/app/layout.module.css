@@ -1,5 +1,5 @@
 .main {
-    max-width: 1000px;
+    position: relative;
     margin: 0 auto;
     padding: 16px;
 }

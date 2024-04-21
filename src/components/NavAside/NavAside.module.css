@@ -1,0 +1,32 @@
+.wrapper {
+    position: sticky;
+    left: 100%;
+    top: 0;
+}
+
+.header {
+    margin-bottom: 16px;
+}
+
+.nav_list {
+    list-style: none;
+    padding: 0;
+}
+
+.nav_list li {
+    margin-bottom: 8px;
+}
+
+.link, .active_link {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 300;
+    opacity: 0.8;
+    transition: color 500ms, opacity 500ms;
+}
+.link:hover {
+    opacity: 1;
+}
+.active_link {
+    color: deeppink;
+}

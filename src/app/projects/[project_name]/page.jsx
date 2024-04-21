@@ -8,6 +8,7 @@ import { getDocsData, getPageData } from "@/helpers/read-files";
 import styles from "./layout.module.css";
 import ProjectTitle from "@/components/ProjectTitle";
 import SpotOverviewImage from "@/components/SpotOverviewImage";
+import NavAside from "@/components/NavAside";
 
 export const dynamic = "force-static";
 export const dynamicParams = true;
@@ -62,6 +63,11 @@ const components = {
   ),
   a: Link,
   Image: (props) => <Image {...props}>{props.children}</Image>,
+  h2: (props) => (
+    <h2 {...props} id={save_tag(props.children)}>
+      {props.children}
+    </h2>
+  ),
   h3: (props) => (
     <h3 {...props} id={save_tag(props.children)}>
       {props.children}
@@ -87,9 +93,27 @@ export default async function Page({ params }) {
   let { data, content } = await getPageData(path);
   console.log(data);
   return (
-    <>
-      <ProjectTitle>{data.title}</ProjectTitle>
-      <CustomMDX source={content} />
-    </>
+    <div className={styles.wrapper}>
+      <div className={styles.spacer} />
+      <main className={styles.main}>
+        <ProjectTitle>{data.title}</ProjectTitle>
+        <CustomMDX source={content} />
+      </main>
+      <aside className={styles.aside}>
+        <NavAside headings={getSideHeadings(content)} />
+      </aside>
+    </div>
   );
+}
+
+function getSideHeadings(content) {
+  const headings = [];
+  for (let line of content.split("\n")) {
+    if (line.startsWith("#")) {
+      let [, count, text] = line.match("(#*)s*(.*)");
+      //if (count.length === 2)
+      headings.push({ level: count.length, text: text, id: save_tag(text) });
+    }
+  }
+  return headings;
 }

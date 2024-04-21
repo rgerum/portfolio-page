@@ -1,3 +1,24 @@
+.wrapper {
+  display: flex;
+}
+
+.spacer {
+  width: 300px;
+}
+
+.main {
+  max-width: 1000px;
+}
+.aside {
+  width: 300px;
+  position: sticky;
+  align-self: flex-start;
+  top: 64px;
+}
+
+
+
+
 .container {
   --docs-background: white;
   --docs-border: #fbfbfb; /*var(--overview-hr);*/
