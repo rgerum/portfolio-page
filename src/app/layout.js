@@ -3,6 +3,8 @@ import "./styles.css";
 import { Work_Sans, Spline_Sans_Mono } from "next/font/google";
 import clsx from "clsx";
 import styles from "./layout.module.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const mainFont = Work_Sans({
   subsets: ["latin"],
@@ -21,9 +23,9 @@ function RootLayout({ children }) {
   return (
     <html lang="en" className={clsx(mainFont.variable, monoFont.variable)}>
       <body>
-        <nav>Header</nav>
+        <Header />
         <main className={styles.main}>{children}</main>
-        <footer>Footer</footer>
+        <Footer />
       </body>
     </html>
   );

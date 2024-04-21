@@ -1,0 +1,30 @@
+.wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wrapper a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo_part {
+
+}
+
+.nav {
+}
+
+.nav_title {
+    margin: 0;
+}
+.nav_ul {
+    padding: 0;
+    display: flex;
+    gap: 32px;
+}
