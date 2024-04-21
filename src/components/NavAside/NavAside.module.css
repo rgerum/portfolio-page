@@ -7,6 +7,9 @@
 .header {
     margin-bottom: 16px;
 }
+.header:not(:first-of-type) {
+    margin-top: 32px;
+}
 
 .nav_list {
     list-style: none;
@@ -29,4 +32,17 @@
 }
 .active_link {
     color: deeppink;
+}
+
+
+.icon_list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.icon_list a {
+    color:inherit;
 }

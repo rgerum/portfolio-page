@@ -98,7 +98,12 @@ export default async function Page({ params }) {
         <CustomMDX source={content} />
       </main>
       <aside className={styles.aside}>
-        <NavAside headings={getSideHeadings(content)} />
+        <NavAside
+          headings={getSideHeadings(content)}
+          external_links={Object.entries(data.links).map(([k, v]) => {
+            return { id: v, text: k };
+          })}
+        />
       </aside>
     </>
   );
@@ -106,12 +111,19 @@ export default async function Page({ params }) {
 
 function getSideHeadings(content) {
   const headings = [];
+  let last_line;
   for (let line of content.split("\n")) {
+    console.log(line);
     if (line.startsWith("#")) {
       let [, count, text] = line.match("(#*)s*(.*)");
       //if (count.length === 2)
       headings.push({ level: count.length, text: text, id: save_tag(text) });
     }
+    if (line.match(/^=+\s*$/))
+      headings.push({ level: 1, text: last_line, id: save_tag(last_line) });
+    if (line.match(/^-+\s*$/))
+      headings.push({ level: 2, text: last_line, id: save_tag(last_line) });
+    last_line = line;
   }
   return headings;
 }

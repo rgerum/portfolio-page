@@ -19,6 +19,13 @@
   padding: 16px 32px;
 }
 
+@media (max-width: 550px) {
+  /* Phones */
+  .aside {
+    display: none;
+  }
+}
+
 
 .image_wrapper {
   overflow: auto;

@@ -2,18 +2,22 @@
 import React from "react";
 import styles from "./NavAside.module.css";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { GitHub } from "react-feather";
+import { BookText, FileText, Globe } from "lucide-react";
 
-function NavAside({ headings }) {
+function NavAside({ headings, external_links }) {
   const [activeHeading, setActiveHeading] = React.useState(undefined);
 
   function onClick(e, id) {
     e.preventDefault();
     const element = document.getElementById(id);
-    element.scrollIntoView({
+    // Adjust scroll position to account for the header
+    window.scrollBy({
+      top: element.getBoundingClientRect().top - 100,
       behavior: "smooth",
-      block: "start",
-      inline: "nearest",
     });
+    window.history.pushState(null, "", "#" + id);
   }
 
   React.useEffect(() => {
@@ -25,8 +29,31 @@ function NavAside({ headings }) {
     window.addEventListener("scroll", listener);
     return () => window.removeEventListener("scroll", listener);
   }, [headings, activeHeading]);
+
+  const pathname = usePathname().split("/").at(-1);
+  const links = [
+    { id: "saenopy", text: "Saenopy" },
+    { id: "duostories", text: "Duostories" },
+    { id: "spot", text: "Atka Spot" },
+  ];
+
+  console.log(external_links);
+
   return (
     <>
+      <div className={styles.header}>Projects</div>
+      <ol className={styles.nav_list}>
+        {links.map(({ text, id }) => (
+          <li key={id}>
+            <Link
+              className={pathname === id ? styles.active_link : styles.link}
+              href={"/projects/" + id}
+            >
+              {text}
+            </Link>
+          </li>
+        ))}
+      </ol>
       <div className={styles.header}>On this page</div>
       <ol className={styles.nav_list}>
         {headings.map(({ text, id }) => (
@@ -43,7 +70,48 @@ function NavAside({ headings }) {
           </li>
         ))}
       </ol>
+      <ExternalLinks external_links={external_links} />
     </>
+  );
+}
+
+function ExternalLinks({ external_links }) {
+  function LinkIcon({ link }) {
+    if (link.text === "github")
+      return (
+        <Link href={link.id} title={"GitHub"}>
+          <GitHub />
+        </Link>
+      );
+    if (link.text === "publication")
+      return (
+        <Link href={link.id} title={"publication"}>
+          <FileText />
+        </Link>
+      );
+    if (link.text === "website")
+      return (
+        <Link href={link.id} title={"website"}>
+          <Globe />
+        </Link>
+      );
+    if (link.text === "docs")
+      return (
+        <Link href={link.id} title={"docs"}>
+          <BookText />
+        </Link>
+      );
+    return <Link href={link.id}>{link.text}</Link>;
+  }
+  console.log("external_links", external_links);
+  return (
+    <ol className={styles.icon_list}>
+      {external_links.map((link) => (
+        <li key={link.id}>
+          <LinkIcon link={link} />
+        </li>
+      ))}
+    </ol>
   );
 }
 
