@@ -5,10 +5,10 @@ import clsx from "clsx";
 function SpotOverviewImage() {
   return (
     <div className={styles.wrapper}>
-      <img src="/spot/IceOverview.png" />
+      <img src="/spot/IceOverview.jpg" />
       <div className={styles.hover_me}>
         <div className={styles.hover_circle}></div>
-        <img src="/spot/Spot.png" />
+        <img src="/spot/Spot.jpg" />
         <span className={clsx(styles.label, styles.pointer_device)}>
           hover me
         </span>
