@@ -20,6 +20,32 @@
     margin-bottom: 8px;
 }
 
+.markerlist {
+    position: relative;
+}
+.markerlist li {
+    margin-bottom: 0;
+}
+
+.marker {
+    width: 100%;
+    background-color: deeppink;
+    position: absolute;
+    top: 0;
+    padding: 4px 0;
+    transition: transform 500ms;
+}
+
+.markerlist .link, .markerlist .active_link {
+    opacity: 1;
+    background: white;
+    color: black;
+    mix-blend-mode: screen;
+    padding: 4px 0;
+    width: 100%;
+    display: block;
+}
+
 .link, .active_link {
     text-decoration: none;
     color: inherit;

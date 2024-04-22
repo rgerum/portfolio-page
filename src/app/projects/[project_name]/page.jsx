@@ -121,10 +121,8 @@ function getSideHeadings(content) {
   const headings = [];
   let last_line;
   for (let line of content.split("\n")) {
-    console.log(line);
     if (line.startsWith("#")) {
       let [, count, text] = line.match("(#*)s*(.*)");
-      //if (count.length === 2)
       headings.push({ level: count.length, text: text, id: save_tag(text) });
     }
     if (line.match(/^=+\s*$/))

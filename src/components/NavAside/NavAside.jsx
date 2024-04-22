@@ -5,9 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GitHub } from "react-feather";
 import { BookText, FileText, Globe } from "lucide-react";
+import { motion } from "framer-motion";
 
 function NavAside({ headings, external_links }) {
   const [activeHeading, setActiveHeading] = React.useState(undefined);
+  const [activeIndex, setActiveIndex] = React.useState(0);
 
   function onClick(e, id) {
     e.preventDefault();
@@ -24,7 +26,11 @@ function NavAside({ headings, external_links }) {
     function listener() {
       const newActiveHeading = findTopMostVisibleHeading();
       const find = headings.find((h) => h.id === newActiveHeading);
-      if (find?.id !== activeHeading) setActiveHeading(find?.id);
+      if (find?.id !== activeHeading) {
+        const index = headings.indexOf(find);
+        setActiveIndex(index > 0 ? index : 0);
+        setActiveHeading(find?.id);
+      }
     }
     window.addEventListener("scroll", listener);
     return () => window.removeEventListener("scroll", listener);
@@ -38,8 +44,6 @@ function NavAside({ headings, external_links }) {
     { id: "elvis", text: "ElViS Lesson" },
     { id: "pylustrator", text: "Pylustrator" },
   ];
-
-  console.log(external_links);
 
   return (
     <>
@@ -57,7 +61,13 @@ function NavAside({ headings, external_links }) {
         ))}
       </ol>
       <div className={styles.header}>On this page</div>
-      <ol className={styles.nav_list}>
+      <ol className={styles.nav_list + " " + styles.markerlist}>
+        <motion.div
+          className={styles.marker}
+          style={{ y: `calc(100% * ${activeIndex})` }}
+        >
+          &nbsp;
+        </motion.div>
         {headings.map(({ text, id }) => (
           <li key={id}>
             <Link
@@ -105,7 +115,7 @@ function ExternalLinks({ external_links }) {
       );
     return <Link href={link.id}>{link.text}</Link>;
   }
-  console.log("external_links", external_links);
+
   return (
     <ol className={styles.icon_list}>
       {external_links.map((link) => (
@@ -119,7 +129,9 @@ function ExternalLinks({ external_links }) {
 
 function findTopMostVisibleHeading() {
   // Select all heading elements
-  const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+  const headings = document
+    .querySelector("main")
+    .querySelectorAll("h2, h3, h4, h5, h6");
   let topMostHeading = null;
   let minTop = Infinity;
 
@@ -136,7 +148,6 @@ function findTopMostVisibleHeading() {
       }
     }
   });
-
   // Return the tag name and text of the top-most heading if it exists
   return topMostHeading?.id;
   //    ? topMostHeading.id + ": " + topMostHeading.textContent

@@ -1,14 +1,31 @@
-.h1 {
+.h1_container {
     height: 150px;
-    font-size: 4rem;
     display: grid;
     place-content: center;
+    z-index: 2;
+}
+.h1 {
+    font-size: 4rem;
     font-weight: 300;
     letter-spacing: 0.2em;
     text-shadow: 0 0 40px var(--color-white);
-    transition: letter-spacing 1s;
+    #transition: letter-spacing 1s;
 
     background-image: linear-gradient(6deg, black, hsl(0deg 0% 69.44%));
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+.h1_header_container {
+    position: sticky;
+    z-index: 2;
+    top: 100px;
+    transform: translateY(-100px);
+    padding: 16px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.h1_header {
+    font-size: 2rem;
+    font-weight: 300;
 }
