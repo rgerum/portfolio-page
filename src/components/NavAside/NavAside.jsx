@@ -35,6 +35,8 @@ function NavAside({ headings, external_links }) {
     { id: "saenopy", text: "Saenopy" },
     { id: "duostories", text: "Duostories" },
     { id: "spot", text: "Atka Spot" },
+    { id: "elvis", text: "ElViS Lesson" },
+    { id: "pylustrator", text: "Pylustrator" },
   ];
 
   console.log(external_links);

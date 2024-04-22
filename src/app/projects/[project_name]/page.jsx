@@ -9,6 +9,7 @@ import styles from "./layout.module.css";
 import ProjectTitle from "@/components/ProjectTitle";
 import SpotOverviewImage from "@/components/SpotOverviewImage";
 import NavAside from "@/components/NavAside";
+import Video from "@/components/Video";
 
 export const dynamic = "force-static";
 export const dynamicParams = true;
@@ -74,6 +75,7 @@ const components = {
     </h3>
   ),
   SpotOverviewImage: SpotOverviewImage,
+  Video: Video,
 };
 
 function CustomMDX(props) {
