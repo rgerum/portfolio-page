@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { Code } from "bright";
 
 import { getDocsData, getPageData } from "@/helpers/read-files";
 import styles from "./layout.module.css";
@@ -76,6 +77,11 @@ const components = {
   ),
   SpotOverviewImage: SpotOverviewImage,
   Video: Video,
+  pre: (props) => (
+    <Code {...props} className={styles.code}>
+      {props.children}
+    </Code>
+  ),
 };
 
 function CustomMDX(props) {

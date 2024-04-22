@@ -21,3 +21,23 @@ the figure are saved as python code, so changing the underlying data or reproduc
 
 ## Implementation
 
+Just adding two lines of code to your plotting code opens the plot in Pylustrator instead of the Matplotlib window, by
+monkey patching the Matplotlib functions.
+
+```python
+import pylustrator
+pylustrator.start()
+```
+When loading the interface Pylustrator parses from calling python file Pylustrator's previous changes. All user
+interactions are recorded and when saving merged together and joined with the previous changes.
+
+The code that Pylustrator generates is pure Matplotlib code, so it can be shipped without Pylustrator as a dependency.
+
+<img src="/pylustrator/figure1.jpg"/>
+
+## Interface
+
+The user interface is designed using **Qt** which embeds the matplotlib plot. As the matplotlib plot's rendering can
+slow for large plots, QtGraphicsView is used as an overlay of the plot to create more fluent user interactions.
+
+<img src="/pylustrator/figure2.jpg"/>
