@@ -61,14 +61,3 @@
 }
 
 
-.icon_list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: 16px;
-    margin-top: 32px;
-}
-
-.icon_list a {
-    color:inherit;
-}

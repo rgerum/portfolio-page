@@ -11,6 +11,8 @@ import ProjectTitle from "@/components/ProjectTitle";
 import SpotOverviewImage from "@/components/SpotOverviewImage";
 import NavAside from "@/components/NavAside";
 import Video from "@/components/Video";
+import NavAsideLinks from "@/components/NavAsideLinks";
+import NavAsideProjects from "@/components/NavAsideProjects";
 
 export const dynamic = "force-static";
 export const dynamicParams = true;
@@ -106,8 +108,9 @@ export default async function Page({ params }) {
         <CustomMDX source={content} />
       </main>
       <aside className={styles.aside}>
-        <NavAside
-          headings={getSideHeadings(content)}
+        <NavAsideProjects />
+        <NavAside headings={getSideHeadings(content)} />
+        <NavAsideLinks
           external_links={Object.entries(data.links).map(([k, v]) => {
             return { id: v, text: k };
           })}
@@ -119,7 +122,7 @@ export default async function Page({ params }) {
 
 function getSideHeadings(content) {
   const headings = [];
-  let last_line;
+  let last_line = "";
   for (let line of content.split("\n")) {
     if (line.startsWith("#")) {
       let [, count, text] = line.match("(#*)s*(.*)");
