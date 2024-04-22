@@ -3,6 +3,7 @@ import React from "react";
 import styles from "../NavAside/NavAside.module.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 function NavAsideProjects() {
   const pathname = usePathname().split("/").at(-1);
@@ -16,6 +17,15 @@ function NavAsideProjects() {
 
   return (
     <>
+      <Link
+        className={clsx(
+          pathname === "/" ? styles.active_link : styles.link,
+          styles.first_link,
+        )}
+        href={"/"}
+      >
+        About me
+      </Link>
       <div className={styles.header}>Projects</div>
       <ol className={styles.nav_list}>
         {links.map(({ text, id }) => (
