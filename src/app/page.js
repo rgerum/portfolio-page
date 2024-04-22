@@ -2,8 +2,11 @@ import React from "react";
 import styles from "@/app/projects/[project_name]/layout.module.css";
 import NavAsideProjects from "@/components/NavAsideProjects";
 import ProfilePicture from "@/components/ProfilePicture";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+
+export const metadata = {
+  title: "Richard Gerum - Portfolio",
+};
 
 export default function Page() {
   return (

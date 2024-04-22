@@ -35,7 +35,7 @@ export async function generateMetadata({ params }) {
   const { data } = await getPageData(path);
 
   return {
-    title: data.title,
+    title: data.title + " - Richard Gerum",
     description: data.description,
   };
 }
