@@ -6,6 +6,8 @@
             'main   aside '
             'footer footer';
     justify-content: center;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100%;
 }
 .main {
     position: relative;

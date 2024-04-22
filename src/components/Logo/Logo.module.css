@@ -2,4 +2,5 @@
     font-size: 2rem;
     text-decoration: none;
     color: inherit;
+    z-index: 10;
 }
