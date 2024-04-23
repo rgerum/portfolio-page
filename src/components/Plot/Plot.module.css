@@ -1,0 +1,91 @@
+.wrapper {
+    display: grid;
+    grid-template-areas:
+        'none1 title'
+        'yaxes plot'
+        'none xaxes';
+    width: fit-content;
+    height: fit-content;
+    font-weight: 300;
+}
+
+.title {
+    grid-area: title;
+    text-align: center;
+    font-weight: 400;
+}
+
+.plot {
+    grid-area: plot;
+}
+
+.yaxes_wrapper {
+    grid-area: yaxes;
+    display: flex;
+    width: 4em;
+    flex-direction: row-reverse;
+}
+
+.yaxes_label {
+    text-align: center;
+    width: 100%;
+    writing-mode: sideways-lr;
+}
+
+.yaxes {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 1em;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-right: 1px solid black;
+    position: relative;
+}
+
+.ytick_wrapper {
+    position: absolute;
+    top: var(--pos);
+    height: 1px;
+    width: 8px;
+    background: black;
+}
+
+.ytick {
+    position: absolute;
+    text-align: right;
+    right: 15px;
+    transform: translate(0%, -50%);
+}
+
+.xaxes_wrapper {
+    grid-area: xaxes;
+    display: flex;
+    flex-direction: column;
+}
+
+.xaxes_label {
+    text-align: center;
+    width: 100%;
+}
+
+.xaxes {
+    display: flex;
+    height: 1.5em;
+    border-top: 1px solid black;
+}
+
+.xtick_wrapper {
+    top: 0;
+    left: var(--pos);
+    height: 8px;
+    width: 1px;
+    background: black;
+    position: relative;
+}
+
+.xtick {
+    position: absolute;
+    text-align: center;
+    top: 2px;
+    transform: translateX(-50%);
+}

@@ -3,6 +3,9 @@ import styles from "@/app/projects/[project_name]/layout.module.css";
 import NavAsideProjects from "@/components/NavAsideProjects";
 import ProfilePicture from "@/components/ProfilePicture";
 import Link from "next/link";
+import Plot from "@/components/Plot";
+import { Spring, CanvasSprings } from "@/components/Plot/Spring";
+import ElvisExample from "@/components/ElvisExample";
 
 export const metadata = {
   title: "Richard Gerum - Portfolio",

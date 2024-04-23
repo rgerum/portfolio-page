@@ -13,6 +13,7 @@ import NavAside from "@/components/NavAside";
 import Video from "@/components/Video";
 import NavAsideLinks from "@/components/NavAsideLinks";
 import NavAsideProjects from "@/components/NavAsideProjects";
+import ElvisExample from "@/components/ElvisExample";
 
 export const dynamic = "force-static";
 export const dynamicParams = true;
@@ -79,6 +80,7 @@ const components = {
   ),
   SpotOverviewImage: SpotOverviewImage,
   Video: Video,
+  ElvisExample: ElvisExample,
   pre: (props) => (
     <Code {...props} className={styles.code}>
       {props.children}
