@@ -30,6 +30,24 @@ gamelike manner.
 
 <Image width={968} height={795} priority={true} src="/elvis/overview.jpg"/>
 
+## Challenge
+The project first originated as a playground tool, I build, to investigate spring-dashpot models. I quickly realized
+that this had a great educational potential. Unfortunately, shipping out this **python** based tool was not very smooth,
+so I created a **javascript** version instead that could be shared using a link.
+
+The initial implementation used an iterative **Runge-Kutta** method to solve the differential equations for the
+arbitrary combinations
+of springs and dashpots. But as we use the models in the over-damped limit, e.g. a spring "jumping" to its destination,
+these infinities quickly lead to instabilities. Therefore, I derived a matrix-based **analytic solution** to solve the
+spring-dashpot system for any given point in time.
+
+To actually use the tool in an educational setting, we quickly realized that just having a playground to create an
+intuition of spring-dashpot systems is not enough, we needed a more **guided way**. Therefore, I came up with the concept
+of short lessons where the student needs to derive an equation by **experimenting** with a given spring-dashpot setup.
+
+The equation is evaluated against some "test-cases" to give the student feedback for their solution. This more
+**challenging** way to teach content proved to lead to longer lasting memorisation of the concepts.
+
 ## Improved Learning
 We then surveyed 50 undergraduate students of a 1-semester course in biophysics who participated in
 the virtual laboratory course. Students felt that the course was a helpful addition to the lecture and that it
