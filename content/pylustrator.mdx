@@ -23,6 +23,18 @@ the figure are saved as python code, so changing the underlying data or reproduc
 
 <Video id="xXPI4LLrNuM"/>
 
+## Challenge
+To be really useful as a method to style matplotlib plots, the software needed to be deeply integrated with matplotlib.
+It required be to acquire a deep understanding of the internal works of matplotlib to connect and intercept the
+functionality at the right places.
+
+As it should really lead to reproducible plot generation instead of just saving a final image, pylustrator generates
+python code to reliably create the design. It should do so in a robust manner as the user might later want to do changes
+to their plotting code and still expect the pylustrator code to work with their changes. Also, all the generated code
+should only rely on matplotlib itself and not pylustrator, as one important feature is that the user is not locked in to
+have pylustrator as a permanent dependency. After styling a plot, the pylustrator import can be removed before shipping
+the code.
+
 ## Implementation
 
 Just adding two lines of code to your plotting code opens the plot in Pylustrator instead of the Matplotlib window, by
