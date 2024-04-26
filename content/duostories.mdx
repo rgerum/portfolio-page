@@ -24,6 +24,27 @@ We have currently translated over **2000** stories in over
 
 <Image width={968} height={508} priority={true} src="/duostories/courses.jpg"/>
 
+Challenges
+----------
+To create this community project, it first required me to reverse engineer how the data is loaded in the website of
+Duolingo, so I could scrape the stories date from the website. To be able to use their material in a legal way I needed
+to contact them and negotiate a license agreement.
+
+Then a big challenge was to select the tech stack to use for this project. My first attempts to use a **LAMP** server
+with a **PHP** backend and a **mysql** database got a first prototype running quickly, but I realized that in order to
+keep the app maintainable. I need to upgrade to a more modern stack. Therefore, I transitioned first to a **React** frontend
+and a **node.js** express backend, but finally settled on a **next.js** stack which includes frontend and backend in a
+smooth way with React server components. From the initial **mysql** database I switched to **postgres** as it has more
+advanced features, for storing arrays of json objects.
+
+Hosting the project was another major challenge. I started with a rented server where I had to take care of all the
+devops tasks to keep things running. But without a big team this provided quite challenging, therefore I switched to a
+hosted service "vercel".
+
+Growing and maintaining the community provided another great challenge. Initially I used the Duolingo forum to communicate
+with contributors and users, but had to move to Discord as the Duolingo forum closed. With an active Twitter and
+Instagram account for the project I keep advertising for the project.
+
 Duolingo Approved
 -----------------
 I negotiated with Duolingo a special **license** to cover our
