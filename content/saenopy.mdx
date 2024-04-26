@@ -5,6 +5,7 @@ links:
     github: https://github.com/rgerum/saenopy
     docs: https://saenopy.readthedocs.io/en/latest/
     publication: https://doi.org/10.1101/2022.11.16.516758
+tags: python, Qt, finite element method, pytest, numba, pyinstaller, vtk
 ---
 
 Goal
@@ -17,19 +18,36 @@ immune responses.
 Saenopy allows to measure these forces in a naturalistic 3D collagen
 environment.
 
+Challenges
+----------
+The original version of this 3D transaction force solver was written in a legacy C code base, which was not maintained
+anymore and hard to install and use. I decided that it is crucial to modernize the code base, make it easy to install
+and a pleasure to use.
+
+First challenge was to delve into the complex C codebase with was not well commented and understand the mathematics
+behind the method. Then I needed to rewrite the code in Python and achieve a similar performance heavily relying on
+vectorisation with numpy and jit compilation with numba. Then the method needed to be improved to handle the boundary
+conditions better to be able to work with very small image stacks for fast moving cells.
+
+To make the software accessible to a broader user base, it required to have an easy-to-use interface and be simple to
+install for users without python experience. I created the interface using Qt and interactive 3D visualisations for all
+the intermediate steps of the method using VTK. To make the software easy to install, I used Pyinstaller to bundle it.
+
+Working closely together with our lab experimentalists I got quick feedback on the usability of the software and further
+requirements on the software and the method.
+
 Implementation
 --------------
 
 The force reconstruction is based on a
 **Finite Element Solver** original developed by
 <a href="http://dx.doi.org/10.1038/nmeth.3685">Steinwachs et al.</a>
-The volume is approximated by a grid of tetrahedral elements.
-
-Each element is represented by a non-linear stiffness function
-representing the fibers of the material.
+The volume is approximated by a grid of tetrahedral elements. Each element is represented by a non-linear stiffness function
+representing the fibers of the material. In contrast to most other solvers that only offer linear materials.
 
 Heavy calculations are done using **Numpy** vectorization and
-**Numba** jit-compilation.
+**Numba** jit-compilation. In contrast to other 3D traction force methods, saenopy does not rely on proprietary third
+party software like matlab or abacus, making it easier to access and use for labs.
 
 Interface & Visualization
 -------------------------
