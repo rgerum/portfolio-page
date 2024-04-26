@@ -103,11 +103,14 @@ export default async function Page({ params }) {
 
   let { data, content } = await getPageData(path);
 
+  const MyTags = () => <Tags tags={data.tags} />;
+
   return (
     <>
       <main className={styles.main}>
         <ProjectTitle>{data.title}</ProjectTitle>
-        <CustomMDX source={content} />
+
+        <CustomMDX source={content} components={{ Tags: MyTags }} />
       </main>
       <aside className={styles.aside}>
         <NavAsideProjects />
@@ -119,6 +122,19 @@ export default async function Page({ params }) {
         />
       </aside>
     </>
+  );
+}
+
+function Tags({ tags }) {
+  if (!tags) return null;
+  return (
+    <ul className={styles.tags}>
+      {tags.split(",").map((tag) => (
+        <li key={tag} className={styles.tag_item}>
+          {tag}
+        </li>
+      ))}
+    </ul>
   );
 }
 

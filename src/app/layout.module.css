@@ -35,8 +35,10 @@
 }
 
 .proj_entry {
-text-decoration: none;
+    text-decoration: none;
     color:inherit;
+    width: 200px;
+    display: block;
 }
 
 .proj_image {
@@ -44,6 +46,7 @@ text-decoration: none;
     height: 200px;
     width: 200px;
 }
+
 
 .proj_entry img {
     transform: scale(1);
@@ -68,4 +71,17 @@ text-decoration: none;
 .proj_entry:hover .proj_title {
     font-weight: 300;
     letter-spacing: 0.2em;
+}
+
+.proj_tags {
+    line-height: 1.1;
+}
+
+.proj_tag {
+    display: inline-block;
+    padding: 4px 8px;
+    margin-right: 8px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    background: #d2cece;
 }

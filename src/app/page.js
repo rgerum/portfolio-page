@@ -81,17 +81,41 @@ export default function Page() {
 
 function ProjectList() {
   const links = [
-    { id: "saenopy", text: "Saenopy" },
-    { id: "duostories", text: "Duostories" },
-    { id: "spot", text: "Atka Spot" },
-    { id: "elvis", text: "ElViS Lesson" },
-    { id: "pylustrator", text: "Pylustrator" },
+    {
+      id: "saenopy",
+      text: "Saenopy",
+      tags: ["python", "Qt", "finite element method", "pytest"],
+    },
+    {
+      id: "duostories",
+      text: "Duostories",
+      tags: [
+        "javascript",
+        "react",
+        "nextjs",
+        "cypress",
+        "postgres",
+        "storybook",
+        "vercel",
+      ],
+    },
+    { id: "spot", text: "Atka Spot", tags: ["python", "flask", "d3.js"] },
+    {
+      id: "elvis",
+      text: "ElViS Lesson",
+      tags: ["javascript", "d3.js", "github pages"],
+    },
+    {
+      id: "pylustrator",
+      text: "Pylustrator",
+      tags: ["python", "matplotlib", "Qt", "code generation"],
+    },
   ];
 
   return (
     <>
       <ol className={styles2.proj_list}>
-        {links.map(({ text, id }) => (
+        {links.map(({ text, id, tags }) => (
           <li key={id}>
             <Link className={styles2.proj_entry} href={"/projects/" + id}>
               <div className={styles2.proj_title}>{text}</div>
@@ -104,4 +128,8 @@ function ProjectList() {
       </ol>
     </>
   );
+}
+
+function Tag({ tag }) {
+  return <span className={styles2.proj_tag}>{tag}</span>;
 }

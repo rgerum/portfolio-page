@@ -64,3 +64,19 @@
 .about_me {
   margin-top: 270px;
 }
+
+
+.tags {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.tag_item {
+  display: inline-block;
+  padding: 4px 8px;
+  margin-right: 8px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  background: #d2cece;
+}
