@@ -23,6 +23,23 @@ observatory can be controlled out of our lab in Germany.
 
 <SpotOverviewImage/>
 
+## Challenges
+I arrived to the project when the base infrastructure of connecting the hardware and having small services running to query
+the images from the cameras and a rudimentary web interface to control the observatory. But the interfaces was very simple
+and unreliable as loading an image over a slow connection can lead to errors when the underling live images is already
+replaced by a new version before the last one loaded.
+
+I first needed to understand how the complex interaction between two servers works, one in the observatory running on
+battery with low power and the other running in the Research station 8km away connected with a Wi-Fi bridge. Then I needed
+to design a new system that integrates as smoothly as possible into the old infrastructure without risk of breaking
+anything, as fixing a bug later in the season when the observatory is active but not accessible due to the weather conditions.
+
+It felt a bit like launching software to run in spaces as you need to make sure everything is as fail proof as possible
+because later fixes are very hard.
+
+I opted for a **Flask** backend as the team was familiar with **Python** and kept the frontend as simple as possible
+using mainly vanilla javascript to prevent additional complexity for the team. This also ensured that there was no build
+process needed to deploy the interface.
 
 ## Implementation
 
