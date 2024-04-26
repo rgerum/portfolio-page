@@ -1,11 +1,17 @@
 import React from "react";
 import styles from "./SpotOverviewImage.module.css";
 import clsx from "clsx";
+import Image from "next/image";
 
 function SpotOverviewImage() {
   return (
     <div className={styles.wrapper}>
-      <img src="/spot/IceOverview.jpg" />
+      <Image
+        width={969}
+        height={323}
+        priority={true}
+        src="/spot/IceOverview.jpg"
+      />
       <div className={styles.hover_me}>
         <div className={styles.hover_circle}></div>
         <img src="/spot/Spot.jpg" />
