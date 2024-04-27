@@ -18,56 +18,33 @@ export default function Page() {
       <main className={styles.main}>
         <ProfilePicture />
         <h1 className={styles.about_me}>About Me</h1>
-        {/*
+
         <p>
-          I started programming as a teenager when I realized that playing
-          computer games is fun, but it&apos;s actually more fun to develop my
-          own.
+          I discovered programming as a teenager, when I realized that playing
+          computer games is fun, but it&apos;s actually more fun to develop your
+          own. It wasn't just about making games; I was very curious and
+          fascinated by figuring out how things worked behind the scenes.
         </p>
         <p>
-          The same desire to find out how things work fueled my curiosity to
-          study physics. Here again I realized how important programming skills
-          are to analyse and visualize data.
+          This curiosity took me into physics for my studies, where I found out
+          that programming is not only about creating stuff, but is also a tool
+          to analyze and visualize complex data.
         </p>
         <p>
-          In my scientific career, I always had a focus on using my software
-          skills and create great user experiences. For scientific analysis
-          tools and for educational visualisations.
-        </p>
-        <p>The user experience should be as pleasant as playing a game.</p>
-        <h2>Projects</h2>
-        <p>
-          I know you want to see some proof of what I can do ;-) so check out a
-          selection of my projects:
-        </p>*/}
-        <p>
-          "Back in my teens, I figured out that as much fun as playing computer
-          games was, building my own was even better. That’s how I got hooked on
-          programming. It wasn't just about making games; I was fascinated by
-          figuring out how things worked behind the scenes.
+          Throughout my career in science, I&apos;ve focused on blending my
+          coding skills with my attention to detail to make sure I create
+          engaging user experiences. From developing scientific analysis tools
+          to crafting educational visualizations, I&apos;ve always aimed to make
+          the experience as smooth and enjoyable as possible.
         </p>
         <p>
-          This drive took me into physics for my studies, where it hit me just
-          how crucial programming is—not just for creating stuff, but for
-          analyzing and visualizing complex data. Whether I was crunching
-          numbers or plotting graphs, I always aimed to make the tools I
-          developed as fun and user-friendly as gaming.
-        </p>
-        <p>
-          Throughout my career in science, I’ve focused on blending my coding
-          skills with my knack for creating engaging user experiences. From
-          developing scientific analysis tools to crafting educational
-          visualizations, I've always aimed to make the experience as smooth and
-          enjoyable as possible.
-        </p>
-        <p>
-          I believe that whether it's for serious scientific research or just
-          learning new concepts, using these tools should feel as natural and
-          fun as playing a game."
+          I believe that whether it&apos;s for rigorous scientific research or
+          to automatize just a simple task, using these tools should feel as
+          natural and fun as playing a game.
         </p>
         <h2>Projects</h2>
         <p>
-          I know you want to see some examples of what I do! so check out a
+          I know you want to see some examples of what I do! So, check out a
           selection of my projects:
         </p>
         <ProjectList />
