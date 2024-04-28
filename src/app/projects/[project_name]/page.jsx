@@ -15,6 +15,28 @@ import NavAsideLinks from "@/components/NavAsideLinks";
 import NavAsideProjects from "@/components/NavAsideProjects";
 import ElvisExample from "@/components/ElvisExample";
 
+const IMAGES = {};
+
+import duostories_courses from "../../../../public/duostories/courses.jpg";
+IMAGES["duostories_courses"] = duostories_courses;
+import duostories_audio from "../../../../public/duostories/audio.jpg";
+IMAGES["duostories_audio"] = duostories_audio;
+import duostories_editor from "../../../../public/duostories/editor.jpg";
+IMAGES["duostories_editor"] = duostories_editor;
+
+import elvis_overview from "../../../../public/elvis/overview.jpg";
+IMAGES["elvis_overview"] = elvis_overview;
+
+import pylustrator_figure1 from "../../../../public/pylustrator/figure1.jpg";
+IMAGES["pylustrator_figure1"] = pylustrator_figure1;
+import pylustrator_figure2 from "../../../../public/pylustrator/figure2.jpg";
+IMAGES["pylustrator_figure2"] = pylustrator_figure2;
+
+import spot_image2 from "../../../../public/spot/image2.jpg";
+IMAGES["spot_image2"] = spot_image2;
+import spot_image16 from "../../../../public/spot/image16.jpg";
+IMAGES["spot_image16"] = spot_image16;
+
 export const dynamic = "force-static";
 export const dynamicParams = true;
 
@@ -85,6 +107,14 @@ const components = {
     <Code {...props} className={styles.code}>
       {props.children}
     </Code>
+  ),
+  ImageNamed: ({ name, ...delegated }) => (
+    <Image
+      src={IMAGES[name]}
+      placeholder="blur"
+      style={{ maxWidth: "100%", height: "auto" }}
+      {...delegated}
+    />
   ),
 };
 
