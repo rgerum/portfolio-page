@@ -18,6 +18,8 @@
     right: 0;
     padding: 24px 16px;
     cursor: pointer;
+    /* safari needs to be reminded to keep the color */
+    color: inherit;
 }
 
 @media (max-width: 730px) {
@@ -87,4 +89,6 @@
     background: none;
     border: none;
     cursor: pointer;
+    /* safari needs to be reminded to keep the color */
+    color: inherit;
 }
