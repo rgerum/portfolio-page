@@ -41,8 +41,12 @@
     }
     .mobile_only {
         display: block;
+        overflow: hidden;
     }
     .mobile_only .h1_container {
         display: grid;
+    }
+    .mobile_only .h1 {
+        font-size: 3rem;
     }
 }
