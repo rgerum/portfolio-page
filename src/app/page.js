@@ -7,6 +7,7 @@ import Plot from "@/components/Plot";
 import { Spring, CanvasSprings } from "@/components/Plot/Spring";
 import ElvisExample from "@/components/ElvisExample";
 import styles2 from "./layout.module.css";
+import NavAsideWrapper from "@/components/NavAsideWrapper";
 
 export const metadata = {
   title: "Richard Gerum - Portfolio",
@@ -49,9 +50,9 @@ export default function Page() {
         </p>
         <ProjectList />
       </main>
-      <aside className={styles.aside}>
+      <NavAsideWrapper>
         <NavAsideProjects />
-      </aside>
+      </NavAsideWrapper>
     </>
   );
 }

@@ -42,4 +42,7 @@
     .mobile_only {
         display: block;
     }
+    .mobile_only .h1_container {
+        display: grid;
+    }
 }
