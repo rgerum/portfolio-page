@@ -42,6 +42,14 @@
     transition: transform 500ms;
 }
 
+.markerlist li:focus-within {
+    outline: 1px dotted #212121;
+    outline: 5px auto -webkit-focus-ring-color;
+    z-index: 10;
+    position: relative;
+    width: fit-content;
+}
+
 .markerlist .link, .markerlist .active_link {
     opacity: 1;
     background: white;
