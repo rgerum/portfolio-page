@@ -49,11 +49,12 @@ function ElvisExample() {
     return () => clearInterval(interval);
   }, [play, time]);
 
-  function handlePlay() {
+  function handlePlay(e) {
+    e.preventDefault();
     if (!play && time === t_lim[1]) {
       setTime(t_lim[0]);
     }
-    setPlay(true);
+    setPlay(!play);
   }
 
   return (
@@ -139,7 +140,7 @@ function ElvisExample() {
           max={t_lim[1]}
           step={dt}
           value={time}
-          onChange={(e) => setTime(e.target.value)}
+          onChange={(e) => setTime(parseFloat(e.target.value))}
         />
       </label>
     </div>
