@@ -25,7 +25,7 @@ function NavAsideWrapper({ children }) {
                 <VisuallyHidden>Close</VisuallyHidden>
               </button>
             </Dialog.Close>
-            {children}
+            <div className={styles.aside_content}>{children}</div>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
