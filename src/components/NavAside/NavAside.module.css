@@ -30,6 +30,7 @@
 }
 .markerlist li {
     margin-bottom: 0;
+    background: currentColor;
 }
 
 .marker {

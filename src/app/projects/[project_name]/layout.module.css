@@ -19,7 +19,7 @@
   padding: 16px 32px;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 730px) {
   /* Phones */
   .aside {
     display: none;

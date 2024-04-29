@@ -8,6 +8,7 @@
     justify-content: center;
     grid-template-rows: auto 1fr auto;
     min-height: 100%;
+    isolation: isolate;
 }
 .main {
     position: relative;
@@ -15,7 +16,7 @@
     padding: 16px;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 730px) {
     /* Phones */
     .layout {
         display: grid;

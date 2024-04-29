@@ -29,3 +29,17 @@
     font-size: 2rem;
     font-weight: 300;
 }
+
+
+.mobile_only {
+    display: none;
+}
+
+@media (max-width: 730px) {
+    .h1_header_container, .h1_container {
+        display: none;
+    }
+    .mobile_only {
+        display: block;
+    }
+}

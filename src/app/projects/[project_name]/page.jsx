@@ -35,6 +35,7 @@ IMAGES["pylustrator_figure2"] = pylustrator_figure2;
 import spot_image2 from "../../../../public/spot/image2.jpg";
 IMAGES["spot_image2"] = spot_image2;
 import spot_image16 from "../../../../public/spot/image16.jpg";
+import NavAsideWrapper from "@/components/NavAsideWrapper";
 IMAGES["spot_image16"] = spot_image16;
 
 export const dynamic = "force-static";
@@ -142,7 +143,7 @@ export default async function Page({ params }) {
 
         <CustomMDX source={content} components={{ Tags: MyTags }} />
       </main>
-      <aside className={styles.aside}>
+      <NavAsideWrapper>
         <NavAsideProjects />
         <NavAside headings={getSideHeadings(content)} />
         <NavAsideLinks
@@ -150,7 +151,7 @@ export default async function Page({ params }) {
             return { id: v, text: k };
           })}
         />
-      </aside>
+      </NavAsideWrapper>
     </>
   );
 }

@@ -43,6 +43,11 @@ function ProjectTitle({ children }) {
           </div>
         </>
       )}
+      <div className={styles.mobile_only}>
+        <div className={styles.h1_container}>
+          <h1 className={styles.h1}>{children}</h1>
+        </div>
+      </div>
     </>
   );
 }
