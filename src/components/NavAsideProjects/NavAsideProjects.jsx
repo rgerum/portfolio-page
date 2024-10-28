@@ -8,6 +8,7 @@ import clsx from "clsx";
 function NavAsideProjects() {
   const pathname = usePathname().split("/").at(-1);
   const links = [
+    { id: "investwithcode", text: "Invest with Code" },
     { id: "saenopy", text: "Saenopy" },
     { id: "duostories", text: "Duostories" },
     { id: "spot", text: "Atka Spot" },

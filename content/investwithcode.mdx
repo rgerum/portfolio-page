@@ -1,0 +1,38 @@
+---
+title: Invest with Code
+description: Dynamic Portfolios Powered by Bayesian Strategies
+links:
+    website: https://invest-with-code.com/
+tags: python, nextjs, react, Stripe API
+---
+
+## Goal
+
+I built Invest with Code with two primary goals. First, to provide active investors with robust, intuitive market
+indicators, covering stocks, bonds, and commodities, helping them manage diversified portfolios. Second, we aim to
+teach programming enthusiasts how to replicate our strategies with Python, offering both basic and advanced methods
+in quantitative finance.
+
+<Tags/>
+
+<ImageNamed name="iwc_curve" />
+
+## Challenges
+
+A major challenge was integrating user management and subscriptions with Stripe, ensuring smooth transactions.
+When real money is involved the implementation has to be robust so users do not loose access to features they already
+paid for.
+
+The project also needs seamless data integration between the python backend and the js frontend.
+The backend uses advanced data processing libraries like pandas, numpy and bayesloop and the frontend needs custom
+data visualisation tools to communicate the data to the customer.
+
+I wrote a custom plotting library for this purpose to one the one hand reproduce matplotlib-like graphs on  the frontend
+but still have extended interactivity for the user in the browser.
+
+
+## Implementation
+
+Our dynamic portfolios are built with Bayesian statistics, adjusting weekly to market changes. Users can follow along
+by replicating these strategies with our built-in tools. The platform also includes a Python course for those
+interested in coding their own algorithms, making quantitative finance more accessible to a wider audience.

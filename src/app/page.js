@@ -60,6 +60,11 @@ export default function Page() {
 function ProjectList() {
   const links = [
     {
+      id: "investwithcode",
+      text: "Invest wtih Code",
+      tags: ["python", "nextjs", "react"],
+    },
+    {
       id: "saenopy",
       text: "Saenopy",
       tags: ["python", "Qt", "finite element method", "pytest"],
