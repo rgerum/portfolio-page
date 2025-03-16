@@ -60,8 +60,8 @@ export default function Page() {
 function ProjectList() {
   const links = [
     {
-      id: "investwithcode",
-      text: "Invest wtih Code",
+      id: "barudion",
+      text: "Barudion",
       tags: ["python", "nextjs", "react"],
     },
     {

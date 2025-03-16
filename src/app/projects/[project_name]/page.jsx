@@ -38,7 +38,7 @@ import spot_image16 from "../../../../public/spot/image16.jpg";
 import NavAsideWrapper from "@/components/NavAsideWrapper";
 IMAGES["spot_image16"] = spot_image16;
 
-import iwc_curve from "../../../../public/investwithcode/curve.png";
+import iwc_curve from "../../../../public/barudion/curve.png";
 IMAGES["iwc_curve"] = iwc_curve;
 
 export const dynamic = "force-static";
