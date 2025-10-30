@@ -56,7 +56,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  let path = params.project_name;
+  let path = (await params).project_name;
   if (path.endsWith(".js") || path.endsWith(".mdx")) return notFound();
 
   const { data } = await getPageData(path);
@@ -132,7 +132,7 @@ function CustomMDX(props) {
 }
 
 export default async function Page({ params }) {
-  const path = params.project_name;
+  const path = (await params).project_name;
   if (path.endsWith(".js") || path.endsWith(".mdx")) return notFound();
 
   let { data, content } = await getPageData(path);
