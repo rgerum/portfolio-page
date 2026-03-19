@@ -93,7 +93,11 @@ const components = {
     </Link>
   ),
   a: Link,
-  Image: (props) => <Image {...props}>{props.children}</Image>,
+  Image: (props) => (
+    <Image {...props} alt={props.alt ?? ""}>
+      {props.children}
+    </Image>
+  ),
   h2: (props) => (
     <h2 {...props} id={save_tag(props.children)}>
       {props.children}
@@ -115,6 +119,7 @@ const components = {
   ImageNamed: ({ name, ...delegated }) => (
     <Image
       src={IMAGES[name]}
+      alt={delegated.alt ?? ""}
       placeholder="blur"
       style={{ maxWidth: "100%", height: "auto" }}
       {...delegated}

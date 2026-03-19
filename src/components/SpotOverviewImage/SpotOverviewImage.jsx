@@ -3,6 +3,7 @@ import styles from "./SpotOverviewImage.module.css";
 import clsx from "clsx";
 import Image from "next/image";
 import im_ice from "../../../public/spot/IceOverview.jpg";
+import im_spot from "../../../public/spot/Spot.jpg";
 
 function SpotOverviewImage() {
   return (
@@ -10,12 +11,13 @@ function SpotOverviewImage() {
       <Image
         priority={true}
         src={im_ice}
+        alt="Overview of the Spot interface on sea ice imagery"
         placeholder="blur"
         style={{ maxWidth: "100%", height: "auto" }}
       />
       <div className={styles.hover_me}>
         <div className={styles.hover_circle}></div>
-        <img src="/spot/Spot.jpg" />
+        <Image src={im_spot} alt="Detail view of Spot" />
         <span className={clsx(styles.label, styles.pointer_device)}>
           hover me
         </span>

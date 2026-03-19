@@ -8,6 +8,7 @@ import { Pause, Play } from "lucide-react";
 
 const COLOR1 = "#1f77b4";
 const COLOR2 = "#fc5252";
+const T_LIM = [-1, 3];
 
 function ElvisExample() {
   const [displacement, setDisplacement] = React.useState(1);
@@ -17,33 +18,32 @@ function ElvisExample() {
   const [play, setPlay] = React.useState(false);
 
   const dt = 0.01;
-  const t_lim = [-1, 3];
 
-  const data = range(t_lim[0], t_lim[1] + dt, dt).map((t) => {
+  const data = range(T_LIM[0], T_LIM[1] + dt, dt).map((t) => {
     if (t > 0 && t < 1) {
       return [t, 1 * displacement];
     }
     return [t, 0];
   });
-  const data2 = range(t_lim[0], t_lim[1] + dt, dt).map((t) => {
+  const data2 = range(T_LIM[0], T_LIM[1] + dt, dt).map((t) => {
     if (t > 0 && t < 1) {
       return [t, 1 * displacement * strength];
     }
     return [t, 0];
   });
   function time_to_index(time) {
-    if (time < t_lim[0]) return 0;
-    if (time > t_lim[1]) return data.length - 1;
-    return Math.round((time - t_lim[0]) / dt);
+    if (time < T_LIM[0]) return 0;
+    if (time > T_LIM[1]) return data.length - 1;
+    return Math.round((time - T_LIM[0]) / dt);
   }
 
   useEffect(() => {
     if (!play) return;
     const interval = setInterval(() => {
       const newTime = time + 0.1;
-      if (newTime > t_lim[1]) {
+      if (newTime > T_LIM[1]) {
         setPlay(false);
-        setTime(t_lim[1]);
+        setTime(T_LIM[1]);
       } else setTime(newTime);
     }, 100);
     return () => clearInterval(interval);
@@ -51,8 +51,8 @@ function ElvisExample() {
 
   function handlePlay(e) {
     e.preventDefault();
-    if (!play && time === t_lim[1]) {
-      setTime(t_lim[0]);
+    if (!play && time === T_LIM[1]) {
+      setTime(T_LIM[0]);
     }
     setPlay(!play);
   }
@@ -88,7 +88,7 @@ function ElvisExample() {
           xlabel={"time (s)"}
           ylabel={"dips. (m)"}
           ylim={[0, displacement * 1.1]}
-          xlim={t_lim}
+          xlim={T_LIM}
           title={"input"}
           content={[
             {
@@ -114,7 +114,7 @@ function ElvisExample() {
           ylabel={"force (N)"}
           ylim={[0, displacement * strength * 1.1]}
           title={"output"}
-          xlim={t_lim}
+          xlim={T_LIM}
           content={[
             {
               type: "line",
@@ -136,8 +136,8 @@ function ElvisExample() {
         <input
           type="range"
           className={styles.slider}
-          min={t_lim[0]}
-          max={t_lim[1]}
+          min={T_LIM[0]}
+          max={T_LIM[1]}
           step={dt}
           value={time}
           onChange={(e) => setTime(parseFloat(e.target.value))}

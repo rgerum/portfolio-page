@@ -106,8 +106,9 @@ function Plot({
         decimalPlaces={decimalPlacesX}
       />
       <Canvas xlim={xlim} ylim={ylim} height={height} width={width}>
-        {content.map((i) => (
+        {content.map((i, index) => (
           <Content
+            key={`${i.type}-${index}`}
             entry={i}
             xlim={xlim}
             ylim={ylim}
@@ -134,8 +135,9 @@ function Content({ entry, xlim, ylim, width, height }) {
   if (entry.type === "scatter") {
     return (
       <>
-        {entry.data.map((i) => (
+        {entry.data.map((i, index) => (
           <circle
+            key={`${i[0]}-${i[1]}-${index}`}
             cx={MapPointX(i[0], xlim, width)}
             cy={MapPointY(i[1], ylim, height)}
             r="5"

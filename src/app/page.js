@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "@/app/projects/[project_name]/layout.module.css";
 import NavAsideProjects from "@/components/NavAsideProjects";
 import ProfilePicture from "@/components/ProfilePicture";
@@ -23,7 +24,7 @@ export default function Page() {
         <p>
           I discovered programming as a teenager, when I realized that playing
           computer games is fun, but it&apos;s actually more fun to develop your
-          own. It wasn't just about making games; I was very curious and
+          own. It wasn&apos;t just about making games; I was very curious and
           fascinated by figuring out how things worked behind the scenes.
         </p>
         <p>
@@ -103,7 +104,12 @@ function ProjectList() {
             <Link className={styles2.proj_entry} href={"/projects/" + id}>
               <div className={styles2.proj_title}>{text}</div>
               <div className={styles2.proj_image}>
-                <img width={200} height={200} src={`/${id}/title.jpg`} />
+                <Image
+                  width={200}
+                  height={200}
+                  src={`/${id}/title.jpg`}
+                  alt={`${text} preview`}
+                />
               </div>
             </Link>
           </li>
