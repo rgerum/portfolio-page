@@ -61,6 +61,12 @@ export default function Page() {
 function ProjectList() {
   const links = [
     {
+      id: "verbalane",
+      text: "Verbalane",
+      image: "/verbalane/title.png",
+      tags: ["react", "language learning", "text-to-speech"],
+    },
+    {
       id: "barudion",
       text: "Barudion",
       tags: ["python", "nextjs", "react"],
@@ -99,7 +105,7 @@ function ProjectList() {
   return (
     <>
       <ol className={styles2.proj_list}>
-        {links.map(({ text, id, tags }) => (
+        {links.map(({ text, id, image, tags }) => (
           <li key={id}>
             <Link className={styles2.proj_entry} href={"/projects/" + id}>
               <div className={styles2.proj_title}>{text}</div>
@@ -107,7 +113,7 @@ function ProjectList() {
                 <Image
                   width={200}
                   height={200}
-                  src={`/${id}/title.jpg`}
+                  src={image ?? `/${id}/title.jpg`}
                   alt={`${text} preview`}
                 />
               </div>
