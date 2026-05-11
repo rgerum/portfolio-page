@@ -65,6 +65,9 @@ export async function generateMetadata({ params }) {
   return {
     title: data.title + " - Richard Gerum",
     description: data.description,
+    alternates: {
+      canonical: absoluteUrl(`/projects/${path}`),
+    },
   };
 }
 

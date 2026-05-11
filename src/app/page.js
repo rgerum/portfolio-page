@@ -13,6 +13,9 @@ import { absoluteUrl, JsonLd, siteUrl } from "@/helpers/structured-data";
 
 export const metadata = {
   title: "Richard Gerum - Portfolio",
+  alternates: {
+    canonical: siteUrl,
+  },
 };
 
 export default function Page() {
