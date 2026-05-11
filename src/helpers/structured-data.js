@@ -1,5 +1,5 @@
 export const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://rgerum.github.io/portfolio-page"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.richardgerum.com"
 ).replace(/\/$/, "");
 
 export function JsonLd({ data }) {
