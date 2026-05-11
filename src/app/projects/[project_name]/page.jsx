@@ -14,6 +14,7 @@ import Video from "@/components/Video";
 import NavAsideLinks from "@/components/NavAsideLinks";
 import NavAsideProjects from "@/components/NavAsideProjects";
 import ElvisExample from "@/components/ElvisExample";
+import { absoluteUrl, JsonLd, siteUrl } from "@/helpers/structured-data";
 
 const IMAGES = {};
 
@@ -49,7 +50,7 @@ export async function generateStaticParams() {
 
   const pages = [];
   for (let page of data) {
-    pages.push({ project_name: page });
+    pages.push({ project_name: page.replace(/\.mdx$/, "") });
   }
 
   return pages;
@@ -143,9 +144,31 @@ export default async function Page({ params }) {
   let { data, content } = await getPageData(path);
 
   const MyTags = () => <Tags tags={data.tags} />;
+  const links = Object.entries(data.links ?? {}).map(([k, v]) => {
+    return { id: v, text: k };
+  });
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${absoluteUrl(`/projects/${path}`)}#project`,
+    name: data.title,
+    description: data.description,
+    url: absoluteUrl(`/projects/${path}`),
+    image: absoluteUrl(data.image ?? `/${path}/title.jpg`),
+    dateModified: data.lastModified,
+    keywords: data.tags?.split(",").map((tag) => tag.trim()),
+    author: {
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      name: "Richard Gerum",
+      url: siteUrl,
+    },
+    sameAs: links.map((link) => link.id),
+  };
 
   return (
     <>
+      <JsonLd data={jsonLd} />
       <main className={styles.main}>
         <ProjectTitle>{data.title}</ProjectTitle>
 
@@ -154,11 +177,7 @@ export default async function Page({ params }) {
       <NavAsideWrapper>
         <NavAsideProjects />
         <NavAside headings={getSideHeadings(content)} />
-        <NavAsideLinks
-          external_links={Object.entries(data.links).map(([k, v]) => {
-            return { id: v, text: k };
-          })}
-        />
+        <NavAsideLinks external_links={links} />
       </NavAsideWrapper>
     </>
   );
