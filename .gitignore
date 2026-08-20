@@ -130,3 +130,7 @@ dist
 .pnp.*
 
 .idea
+.vercel
+
+# macOS
+.DS_Store
