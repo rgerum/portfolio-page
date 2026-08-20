@@ -1,16 +1,24 @@
 "use client";
-import React from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import styles from "./NavAside.module.css";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import type { Heading } from "@/types/content";
 
-function NavAside({ headings }) {
-  const [activeHeading, setActiveHeading] = React.useState(undefined);
-  const [activeIndex, setActiveIndex] = React.useState(0);
+interface NavAsideProps {
+  headings: Heading[];
+}
 
-  function onClick(e, id) {
+function NavAside({ headings }: NavAsideProps) {
+  const [activeHeading, setActiveHeading] = useState<string>();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  function onClick(e: MouseEvent<HTMLAnchorElement>, id: string) {
     e.preventDefault();
     const element = document.getElementById(id);
+    if (!element) {
+      return;
+    }
     // Adjust scroll position to account for the header
     window.scrollBy({
       top: element.getBoundingClientRect().top - 100,
@@ -19,12 +27,12 @@ function NavAside({ headings }) {
     window.history.pushState(null, "", "#" + id);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     function listener() {
       const newActiveHeading = findTopMostVisibleHeading();
       const find = headings.find((h) => h.id === newActiveHeading);
       if (find?.id !== activeHeading) {
-        const index = headings.indexOf(find);
+        const index = find ? headings.indexOf(find) : -1;
         setActiveIndex(index > 0 ? index : 0);
         setActiveHeading(find?.id);
       }
@@ -61,12 +69,14 @@ function NavAside({ headings }) {
   );
 }
 
-function findTopMostVisibleHeading() {
-  // Select all heading elements
-  const headings = document
-    .querySelector("main")
-    .querySelectorAll("h2, h3, h4, h5, h6");
-  let topMostHeading = null;
+function findTopMostVisibleHeading(): string | undefined {
+  const main = document.querySelector("main");
+  if (!main) {
+    return undefined;
+  }
+
+  const headings = main.querySelectorAll<HTMLElement>("h2, h3, h4, h5, h6");
+  let topMostHeadingId: string | undefined;
   let minTop = Infinity;
 
   // Iterate through each heading to find the most visible one
@@ -78,14 +88,11 @@ function findTopMostVisibleHeading() {
       // Check if this element is closer to the top of the viewport
       if (rect.top < minTop) {
         minTop = rect.top;
-        topMostHeading = heading;
+        topMostHeadingId = heading.id;
       }
     }
   });
-  // Return the tag name and text of the top-most heading if it exists
-  return topMostHeading?.id;
-  //    ? topMostHeading.id + ": " + topMostHeading.textContent
-  //    : "No visible heading in viewport";
+  return topMostHeadingId;
 }
 
 export default NavAside;

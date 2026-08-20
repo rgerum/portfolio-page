@@ -1,7 +1,10 @@
-import React from "react";
 import styles from "./Video.module.css";
 
-function Video({ id }) {
+interface VideoProps {
+  id: string;
+}
+
+function Video({ id }: VideoProps) {
   return (
     <div className={styles.wrapper}>
       <iframe

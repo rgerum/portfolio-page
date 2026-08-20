@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./SpotOverviewImage.module.css";
 import clsx from "clsx";
 import Image from "next/image";

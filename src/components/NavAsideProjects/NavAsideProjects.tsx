@@ -1,13 +1,14 @@
 "use client";
-import React from "react";
 import styles from "../NavAside/NavAside.module.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 function NavAsideProjects() {
-  const pathname = usePathname().split("/").at(-1);
+  const pathname = usePathname();
+  const activeProject = pathname.split("/").at(-1) ?? "";
   const links = [
+    { id: "atrium", text: "Atrium" },
     { id: "barudion", text: "Barudion" },
     { id: "saenopy", text: "Saenopy" },
     { id: "duostories", text: "Duostories" },
@@ -32,7 +33,7 @@ function NavAsideProjects() {
         {links.map(({ text, id }) => (
           <li key={id}>
             <Link
-              className={pathname === id ? styles.active_link : styles.link}
+              className={activeProject === id ? styles.active_link : styles.link}
               href={"/projects/" + id}
             >
               {text}

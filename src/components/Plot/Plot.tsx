@@ -1,29 +1,63 @@
 "use client";
-import React, { useEffect } from "react";
+import {
+  useEffect,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import styles from "./Plot.module.css";
-import { useAnimationFrame, useMotionValue, useSpring } from "framer-motion";
+import type { PlotEntry, PlotRange, Point } from "./types";
 
-const range = (start, end, step = 1) => {
-  let output = [];
-  if (typeof end === "undefined") {
-    end = start;
-    start = 0;
-  }
-  for (let i = start; i < end; i += step) {
-    output.push(i);
-  }
-  return output;
-};
+interface TickAxisProps {
+  label: string;
+  lim: PlotRange;
+  ticks: number[];
+  decimalPlaces: number;
+}
 
-function YAxis({ label, lim, ticks, height, decimalPlaces }) {
-  function pos_to_percentage(pos) {
+interface YAxisProps extends TickAxisProps {
+  height: number;
+}
+
+interface XAxisProps extends TickAxisProps {
+  width: number;
+}
+
+interface PlotProps {
+  xlim?: PlotRange;
+  ylim?: PlotRange;
+  xlabel?: string;
+  ylabel?: string;
+  height?: number;
+  width?: number;
+  title?: string;
+  content: PlotEntry[];
+}
+
+interface ContentProps {
+  entry: PlotEntry;
+  xlim: PlotRange;
+  ylim: PlotRange;
+  width: number;
+  height: number;
+}
+
+interface CanvasProps {
+  height: number;
+  width: number;
+  children: ReactNode;
+}
+
+function YAxis({ label, lim, ticks, height, decimalPlaces }: YAxisProps) {
+  function posToPercentage(pos: number): number {
     return 100 - ((pos - lim[0]) / (lim[1] - lim[0])) * 100;
   }
+
   return (
-    <div className={styles.yaxes_wrapper} style={{ height: height }}>
+    <div className={styles.yaxes_wrapper} style={{ height }}>
       <div className={styles.yaxes}>
         {ticks.map((i) => (
-          <YTick key={i} className={styles.ytick} pos={pos_to_percentage(i)}>
+          <YTick key={i} pos={posToPercentage(i)}>
             {i.toFixed(decimalPlaces)}
           </YTick>
         ))}
@@ -33,15 +67,16 @@ function YAxis({ label, lim, ticks, height, decimalPlaces }) {
   );
 }
 
-function XAxis({ label, lim, ticks, width, decimalPlaces }) {
-  function pos_to_percentage(pos) {
+function XAxis({ label, lim, ticks, width, decimalPlaces }: XAxisProps) {
+  function posToPercentage(pos: number): number {
     return ((pos - lim[0]) / (lim[1] - lim[0])) * 100;
   }
+
   return (
-    <div className={styles.xaxes_wrapper} style={{ width: width }}>
+    <div className={styles.xaxes_wrapper} style={{ width }}>
       <div className={styles.xaxes}>
         {ticks.map((i) => (
-          <XTick key={i} className={styles.xtick} pos={pos_to_percentage(i)}>
+          <XTick key={i} pos={posToPercentage(i)}>
             {i.toFixed(decimalPlaces)}
           </XTick>
         ))}
@@ -51,24 +86,23 @@ function XAxis({ label, lim, ticks, width, decimalPlaces }) {
   );
 }
 
-function useEffectDamping(end) {
-  const [value, setValue] = React.useState(end);
-  const dampingFactor = 0.05; // Adjust this value to change the damping effect
+function useEffectDamping(end: number): number {
+  const [value, setValue] = useState(end);
+  const dampingFactor = 0.05;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const delta = end - value;
     if (Math.abs(delta) < 0.01) return;
     const interval = setInterval(() => {
-      // Calculate the next value by moving a small fraction of the distance towards the end value
       setValue((prevValue) => {
         const delta = end - prevValue;
         return Math.abs(delta) < 0.01 ? end : prevValue + delta * dampingFactor;
       });
-    }, 16); // Approximately 60 FPS
+    }, 16);
 
-    // Clear the interval when the component is unmounted or the value reaches the end
     return () => clearInterval(interval);
   }, [value, end]);
+
   return value;
 }
 
@@ -81,19 +115,19 @@ function Plot({
   width = 200,
   title,
   content,
-}) {
-  ylim = [ylim[0], useEffectDamping(ylim[1])];
+}: PlotProps) {
+  const animatedYLim: PlotRange = [ylim[0], useEffectDamping(ylim[1])];
   const { ticks: xticks, decimalPlaces: decimalPlacesX } =
     calculateTicksAndPrecision(xlim[0], xlim[1]);
   const { ticks: yticks, decimalPlaces: decimalPlacesY } =
-    calculateTicksAndPrecision(ylim[0], ylim[1], 4);
+    calculateTicksAndPrecision(animatedYLim[0], animatedYLim[1], 4);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>{title}</div>
       <YAxis
         label={ylabel}
-        lim={ylim}
+        lim={animatedYLim}
         ticks={yticks}
         height={height}
         decimalPlaces={decimalPlacesY}
@@ -105,13 +139,13 @@ function Plot({
         width={width}
         decimalPlaces={decimalPlacesX}
       />
-      <Canvas xlim={xlim} ylim={ylim} height={height} width={width}>
+      <Canvas height={height} width={width}>
         {content.map((i, index) => (
           <Content
             key={`${i.type}-${index}`}
             entry={i}
             xlim={xlim}
-            ylim={ylim}
+            ylim={animatedYLim}
             height={height}
             width={width}
           />
@@ -121,11 +155,11 @@ function Plot({
   );
 }
 
-function Content({ entry, xlim, ylim, width, height }) {
+function Content({ entry, xlim, ylim, width, height }: ContentProps) {
   if (entry.type === "line") {
     return (
       <path
-        d={PointsToPath(entry.data, xlim, ylim, width, height)}
+        d={pointsToPath(entry.data, xlim, ylim, width, height)}
         fill="none"
         strokeWidth={2}
         stroke={entry.color}
@@ -138,8 +172,8 @@ function Content({ entry, xlim, ylim, width, height }) {
         {entry.data.map((i, index) => (
           <circle
             key={`${i[0]}-${i[1]}-${index}`}
-            cx={MapPointX(i[0], xlim, width)}
-            cy={MapPointY(i[1], ylim, height)}
+            cx={mapPointX(i[0], xlim, width)}
+            cy={mapPointY(i[1], ylim, height)}
             r="5"
             fill={entry.color}
           />
@@ -147,29 +181,36 @@ function Content({ entry, xlim, ylim, width, height }) {
       </>
     );
   }
-  return <div>unknown</div>;
+  return null;
 }
 
-function MapPointX(x, xlim, width) {
+function mapPointX(x: number, xlim: PlotRange, width: number): number {
   return ((x - xlim[0]) / (xlim[1] - xlim[0])) * width;
 }
-function MapPointY(y, ylim, height) {
+
+function mapPointY(y: number, ylim: PlotRange, height: number): number {
   return ((y - ylim[1]) / (ylim[0] - ylim[1])) * height;
 }
 
-function PointsToPath(points, xlim, ylim, width, height) {
-  function map_y(y) {
+function pointsToPath(
+  points: Point[],
+  xlim: PlotRange,
+  ylim: PlotRange,
+  width: number,
+  height: number,
+): string {
+  function mapY(y: number): number {
     return ((y - ylim[1]) / (ylim[0] - ylim[1])) * height;
   }
 
-  function map_x(x) {
+  function mapX(x: number): number {
     return ((x - xlim[0]) / (xlim[1] - xlim[0])) * width;
   }
 
-  return "M" + points.map(([x, y]) => `${map_x(x)},${map_y(y)}`).join("L");
+  return "M" + points.map(([x, y]) => `${mapX(x)},${mapY(y)}`).join("L");
 }
 
-function Canvas({ xlim, ylim, height, width, children }) {
+function Canvas({ height, width, children }: CanvasProps) {
   return (
     <svg
       className={styles.plot}
@@ -182,32 +223,37 @@ function Canvas({ xlim, ylim, height, width, children }) {
   );
 }
 
-function XTick({ pos, children }) {
+function XTick({ pos, children }: { pos: number; children: ReactNode }) {
+  const style = { "--pos": `${pos}%` } as CSSProperties;
+
   return (
-    <div className={styles.xtick_wrapper} style={{ "--pos": pos + "%" }}>
+    <div className={styles.xtick_wrapper} style={style}>
       <span className={styles.xtick}>{children}</span>
     </div>
   );
 }
 
-function YTick({ pos, children }) {
+function YTick({ pos, children }: { pos: number; children: ReactNode }) {
+  const style = { "--pos": `${pos}%` } as CSSProperties;
+
   return (
-    <div className={styles.ytick_wrapper} style={{ "--pos": pos + "%" }}>
+    <div className={styles.ytick_wrapper} style={style}>
       <span className={styles.ytick}>{children}</span>
     </div>
   );
 }
 
-function calculateTicksAndPrecision(minVal, maxVal, maxTicks = 5) {
-  // Determine the approximate range and ideal step
+function calculateTicksAndPrecision(
+  minVal: number,
+  maxVal: number,
+  maxTicks = 5,
+): { ticks: number[]; decimalPlaces: number } {
   const rangeVal = maxVal - minVal;
   const roughStep = rangeVal / (maxTicks - 1);
 
-  // Calculate a 'nice' step size based on the rough step
-  const exponent = Math.floor(Math.log10(roughStep)); // Find exponent of 10
-  const fractional = roughStep / Math.pow(10, exponent); // Normalize to fractional part 1-10
+  const exponent = Math.floor(Math.log10(roughStep));
+  const fractional = roughStep / Math.pow(10, exponent);
 
-  // Define nice steps (e.g., 1, 2, 5, 10)
   let niceStep;
   if (fractional < 1.5) {
     niceStep = 1;
@@ -219,28 +265,24 @@ function calculateTicksAndPrecision(minVal, maxVal, maxTicks = 5) {
     niceStep = 10;
   }
 
-  niceStep *= Math.pow(10, exponent); // Scale back to the original range of steps
+  niceStep *= Math.pow(10, exponent);
 
-  // Determine the number of decimal places based on the nice step
   const decimalPlaces = niceStep < 1 ? Math.abs(exponent) : 0;
 
-  // Define tick positions
   const tickStart = Math.floor(minVal / niceStep) * niceStep;
   const tickEnd = Math.ceil(maxVal / niceStep) * niceStep;
 
-  // Generate ticks
   const numTicks = Math.round((tickEnd - tickStart) / niceStep + 1);
-  const ticks = [];
+  const ticks: number[] = [];
   for (let i = 0; i < numTicks; i++) {
     ticks.push(tickStart + i * niceStep);
   }
 
-  // Ensure ticks within the bounds
   const filteredTicks = ticks.filter(
     (tick) => minVal <= tick && tick <= maxVal,
   );
 
-  return { ticks: filteredTicks, decimalPlaces: decimalPlaces };
+  return { ticks: filteredTicks, decimalPlaces };
 }
 
 export default Plot;

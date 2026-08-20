@@ -1,10 +1,21 @@
 import { draw_spring } from "@/components/Plot/plot_spring";
+import type { ReactNode } from "react";
+import type { Point } from "./types";
 
-function PointsToPath(points) {
+function pointsToPath(points: Point[]): string {
   return "M" + points.map(([x, y]) => `${x},${y}`).join("L");
 }
 
-export function CanvasSprings({ children }) {
+interface CanvasSpringsProps {
+  children: ReactNode;
+}
+
+interface SpringProps {
+  start: Point;
+  end: Point;
+}
+
+export function CanvasSprings({ children }: CanvasSpringsProps) {
   return (
     <svg width={150} height={150} viewBox={"-0.5 -1.5 3 3"}>
       {children}
@@ -12,12 +23,12 @@ export function CanvasSprings({ children }) {
   );
 }
 
-export function Spring({ start, end }) {
+export function Spring({ start, end }: SpringProps) {
   const data = draw_spring([start, end]);
   return (
     <>
       <path
-        d={PointsToPath(data.lines[0])}
+        d={pointsToPath(data.lines[0])}
         fill="none"
         stroke="red"
         strokeWidth={0.05}

@@ -1,0 +1,73 @@
+---
+title: Atrium
+description: A platform for musicians to discover live music venues across Germany, with booking info and honest reviews from artists who have played there.
+links:
+    website: https://atrium.music
+tags: typescript, react, nextjs, convex, clerk, tailwind, google maps
+---
+
+Goal
+----
+
+Finding a **stage to play on** is one of the hardest parts of being a
+musician. Venue information is scattered, booking contacts are hard to
+find, and you never know what to expect until you arrive.
+
+**Atrium** solves this: a platform that collects **live music venues
+across Germany** with booking information and **honest reviews from
+artists** who have actually played there. From artists, for artists —
+free and open to all.
+
+<Tags/>
+
+<ImageNamed name="atrium_hero"/>
+
+Challenges
+----------
+
+Atrium serves **two very different user groups**: musicians looking for
+places to play, and **venue owners** managing their profiles and booking
+requests. The app is built around this split, with separate route trees
+and onboarding flows for each role, while sharing a common design system
+built with **Tailwind CSS** and **Radix UI**.
+
+For the backend I chose **Convex**, a real-time database where queries,
+mutations and the schema all live in **TypeScript**. Every part of the
+app — venue profiles, messaging, communities, booking requests — updates
+live without any manual cache invalidation. Authentication is handled by
+**Clerk**, synced to the database via webhooks.
+
+Since the platform targets both German and international users, the whole
+site is **fully localized** in German and English, including
+server-rendered SEO pages for every city and venue.
+
+Geospatial Search
+-----------------
+
+The heart of Atrium is its **map-based venue search**. Venues are stored
+in a **geospatial index**, so searches run against the visible map
+bounds: pan the map over Berlin and the venues of Berlin appear in real
+time.
+
+The map is built on the **Google Maps API**, combined with
+server-rendered city pages so that search engines can discover every
+venue as well.
+
+Booking & Community
+-------------------
+
+Musicians can send **booking requests** directly through the platform,
+with an integrated **messaging system** for negotiating dates. Venue
+owners manage incoming requests through their own dashboard.
+
+Beyond bookings, Atrium offers **communities** where musicians connect
+with like-minded artists and industry professionals — with posts,
+threads and likes, all updating in real time.
+
+Built by the Scene
+------------------
+
+Atrium is built by **musicians from Leipzig** who know first-hand how
+hard it is to find good venues. The venue data is **hand-curated** by
+people from the local scene, starting with Leipzig as the reference city
+and growing city by city across Germany.

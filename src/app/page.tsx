@@ -1,16 +1,19 @@
-import React from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import styles from "@/app/projects/[project_name]/layout.module.css";
 import NavAsideProjects from "@/components/NavAsideProjects";
 import ProfilePicture from "@/components/ProfilePicture";
 import Link from "next/link";
-import Plot from "@/components/Plot";
-import { Spring, CanvasSprings } from "@/components/Plot/Spring";
-import ElvisExample from "@/components/ElvisExample";
 import styles2 from "./layout.module.css";
 import NavAsideWrapper from "@/components/NavAsideWrapper";
 
-export const metadata = {
+interface ProjectLink {
+  id: string;
+  text: string;
+  tags: string[];
+}
+
+export const metadata: Metadata = {
   title: "Richard Gerum - Portfolio",
 };
 
@@ -59,7 +62,12 @@ export default function Page() {
 }
 
 function ProjectList() {
-  const links = [
+  const links: ProjectLink[] = [
+    {
+      id: "atrium",
+      text: "Atrium",
+      tags: ["typescript", "react", "nextjs", "convex", "clerk"],
+    },
     {
       id: "barudion",
       text: "Barudion",
@@ -99,7 +107,7 @@ function ProjectList() {
   return (
     <>
       <ol className={styles2.proj_list}>
-        {links.map(({ text, id, tags }) => (
+        {links.map(({ text, id }) => (
           <li key={id}>
             <Link className={styles2.proj_entry} href={"/projects/" + id}>
               <div className={styles2.proj_title}>{text}</div>
@@ -117,8 +125,4 @@ function ProjectList() {
       </ol>
     </>
   );
-}
-
-function Tag({ tag }) {
-  return <span className={styles2.proj_tag}>{tag}</span>;
 }

@@ -1,11 +1,14 @@
-import React from "react";
 import styles from "./NavAsideLinks.module.css";
 import Link from "next/link";
 import { GitHub } from "react-feather";
 import { BookText, FileText, Globe } from "lucide-react";
+import type { ExternalLink } from "@/types/content";
 
-function NavAsideLinks({ external_links }) {
-  function LinkIcon({ link }) {
+interface NavAsideLinksProps {
+  external_links: ExternalLink[];
+}
+
+function LinkIcon({ link }: { link: ExternalLink }) {
     if (link.text === "github")
       return (
         <Link href={link.id} title={"GitHub"}>
@@ -31,8 +34,9 @@ function NavAsideLinks({ external_links }) {
         </Link>
       );
     return <Link href={link.id}>{link.text}</Link>;
-  }
+}
 
+function NavAsideLinks({ external_links }: NavAsideLinksProps) {
   return (
     <ol className={styles.icon_list}>
       {external_links.map((link) => (

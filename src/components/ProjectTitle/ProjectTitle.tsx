@@ -1,17 +1,22 @@
 "use client";
-import React from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import styles from "./ProjectTitle.module.css";
 import { motion } from "framer-motion";
 
-function ProjectTitle({ children }) {
-  const [visible, setVisible] = React.useState(false);
-  React.useEffect(() => {
+interface ProjectTitleProps {
+  children: ReactNode;
+}
+
+function ProjectTitle({ children }: ProjectTitleProps) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
     function listener() {
       setVisible(window.scrollY > 1);
     }
     window.addEventListener("scroll", listener);
     return () => window.removeEventListener("scroll", listener);
-  }, [visible]);
+  }, []);
 
   return (
     <>

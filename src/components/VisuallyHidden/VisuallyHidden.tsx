@@ -1,19 +1,29 @@
 // Uses from Josh Comeau
 // https://www.joshwcomeau.com/snippets/react-components/visually-hidden/
 
-import React from "react";
+import {
+  useEffect,
+  useState,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+} from "react";
 import styles from "./VisuallyHidden.module.css";
 
-const VisuallyHidden = ({ children, ...delegated }) => {
-  const [forceShow, setForceShow] = React.useState(false);
-  React.useEffect(() => {
+interface VisuallyHiddenProps extends ComponentPropsWithoutRef<"span"> {
+  children: ReactNode;
+}
+
+const VisuallyHidden = ({ children, ...delegated }: VisuallyHiddenProps) => {
+  const [forceShow, setForceShow] = useState(false);
+
+  useEffect(() => {
     if (process.env.NODE_ENV !== "production") {
-      const handleKeyDown = (ev) => {
+      const handleKeyDown = (ev: KeyboardEvent) => {
         if (ev.key === "Alt") {
           setForceShow(true);
         }
       };
-      const handleKeyUp = (ev) => {
+      const handleKeyUp = (ev: KeyboardEvent) => {
         if (ev.key === "Alt") {
           setForceShow(false);
         }
@@ -27,7 +37,7 @@ const VisuallyHidden = ({ children, ...delegated }) => {
     }
   }, []);
   if (forceShow) {
-    return children;
+    return <>{children}</>;
   }
   return (
     <span className={styles.hidden} {...delegated}>

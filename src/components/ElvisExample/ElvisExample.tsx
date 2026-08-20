@@ -1,40 +1,41 @@
 "use client";
-import React, { useEffect } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import styles from "./ElvisExample.module.css";
 import Plot from "@/components/Plot";
 import { CanvasSprings, Spring } from "@/components/Plot/Spring";
 import range from "@/helpers/range";
 import { Pause, Play } from "lucide-react";
+import type { PlotEntry, PlotRange, Point } from "@/components/Plot/types";
 
 const COLOR1 = "#1f77b4";
 const COLOR2 = "#fc5252";
-const T_LIM = [-1, 3];
+const T_LIM: PlotRange = [-1, 3];
 
 function ElvisExample() {
-  const [displacement, setDisplacement] = React.useState(1);
-  const [strength, setStrength] = React.useState(1);
-  const [time, setTime] = React.useState(0);
-
-  const [play, setPlay] = React.useState(false);
+  const [displacement, setDisplacement] = useState(1);
+  const [strength, setStrength] = useState(1);
+  const [time, setTime] = useState(0);
+  const [play, setPlay] = useState(false);
 
   const dt = 0.01;
 
-  const data = range(T_LIM[0], T_LIM[1] + dt, dt).map((t) => {
+  const data: Point[] = range(T_LIM[0], T_LIM[1] + dt, dt).map((t) => {
     if (t > 0 && t < 1) {
-      return [t, 1 * displacement];
+      return [t, displacement];
     }
     return [t, 0];
   });
-  const data2 = range(T_LIM[0], T_LIM[1] + dt, dt).map((t) => {
+  const data2: Point[] = range(T_LIM[0], T_LIM[1] + dt, dt).map((t) => {
     if (t > 0 && t < 1) {
-      return [t, 1 * displacement * strength];
+      return [t, displacement * strength];
     }
     return [t, 0];
   });
-  function time_to_index(time) {
-    if (time < T_LIM[0]) return 0;
-    if (time > T_LIM[1]) return data.length - 1;
-    return Math.round((time - T_LIM[0]) / dt);
+
+  function timeToIndex(currentTime: number): number {
+    if (currentTime < T_LIM[0]) return 0;
+    if (currentTime > T_LIM[1]) return data.length - 1;
+    return Math.round((currentTime - T_LIM[0]) / dt);
   }
 
   useEffect(() => {
@@ -49,7 +50,33 @@ function ElvisExample() {
     return () => clearInterval(interval);
   }, [play, time]);
 
-  function handlePlay(e) {
+  const inputContent: PlotEntry[] = [
+    {
+      type: "line",
+      data,
+      color: COLOR1,
+    },
+    {
+      type: "scatter",
+      data: [data[timeToIndex(time)]],
+      color: COLOR1,
+    },
+  ];
+
+  const outputContent: PlotEntry[] = [
+    {
+      type: "line",
+      data: data2,
+      color: COLOR2,
+    },
+    {
+      type: "scatter",
+      data: [data2[timeToIndex(time)]],
+      color: COLOR2,
+    },
+  ];
+
+  function handlePlay(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     if (!play && time === T_LIM[1]) {
       setTime(T_LIM[0]);
@@ -90,24 +117,10 @@ function ElvisExample() {
           ylim={[0, displacement * 1.1]}
           xlim={T_LIM}
           title={"input"}
-          content={[
-            {
-              type: "line",
-              data: data,
-              color: COLOR1,
-            },
-            {
-              type: "scatter",
-              data: [data[time_to_index(time)]],
-              color: COLOR1,
-            },
-          ]}
+          content={inputContent}
         />
         <CanvasSprings>
-          <Spring
-            start={[0, 0]}
-            end={[1 + 1 * data[time_to_index(time)][1], 0]}
-          />
+          <Spring start={[0, 0]} end={[1 + data[timeToIndex(time)][1], 0]} />
         </CanvasSprings>
         <Plot
           xlabel={"time (s)"}
@@ -115,18 +128,7 @@ function ElvisExample() {
           ylim={[0, displacement * strength * 1.1]}
           title={"output"}
           xlim={T_LIM}
-          content={[
-            {
-              type: "line",
-              data: data2,
-              color: COLOR2,
-            },
-            {
-              type: "scatter",
-              data: [data2[time_to_index(time)]],
-              color: COLOR2,
-            },
-          ]}
+          content={outputContent}
         />
       </div>
       <label className={styles.slider_container}>

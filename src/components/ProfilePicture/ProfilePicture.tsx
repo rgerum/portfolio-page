@@ -1,10 +1,11 @@
-import React from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import styles from "./ProfilePicture.module.css";
 import clsx from "clsx";
 import Image from "next/image";
 
 const size = 150;
-function ProfilePicture({ ...delegated }) {
+
+function ProfilePicture({ ...delegated }: ComponentPropsWithoutRef<"div">) {
   return (
     <>
       <div className={clsx(styles.wrapper, styles.wrapper2)} {...delegated}>
