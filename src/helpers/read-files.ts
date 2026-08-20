@@ -22,6 +22,8 @@ export async function getPageData(pagePath: string): Promise<PageData> {
         description: data.description,
         links: data.links,
         tags: data.tags,
+        image: data.image,
+        lastModified: data.lastModified,
       },
       content: file.content,
     };

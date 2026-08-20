@@ -9,6 +9,7 @@ function NavAsideProjects() {
   const activeProject = pathname.split("/").at(-1) ?? "";
   const links = [
     { id: "atrium", text: "Atrium" },
+    { id: "verbalane", text: "Verbalane" },
     { id: "barudion", text: "Barudion" },
     { id: "saenopy", text: "Saenopy" },
     { id: "duostories", text: "Duostories" },

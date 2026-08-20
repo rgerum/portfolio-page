@@ -6,20 +6,68 @@ import ProfilePicture from "@/components/ProfilePicture";
 import Link from "next/link";
 import styles2 from "./layout.module.css";
 import NavAsideWrapper from "@/components/NavAsideWrapper";
+import { absoluteUrl, JsonLd, siteUrl } from "@/helpers/structured-data";
 
 interface ProjectLink {
   id: string;
   text: string;
   tags: string[];
+  image?: string;
 }
 
 export const metadata: Metadata = {
   title: "Richard Gerum - Portfolio",
+  alternates: {
+    canonical: siteUrl,
+  },
 };
 
 export default function Page() {
+  const projects = getProjects();
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": `${siteUrl}/#person`,
+        name: "Richard Gerum",
+        url: siteUrl,
+        image: absoluteUrl("/Richard.jpg"),
+        sameAs: [
+          "https://github.com/rgerum",
+          "https://twitter.com/RichardGerum",
+          "https://www.linkedin.com/in/richard-gerum-68361a154/",
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        url: siteUrl,
+        name: "Richard Gerum - Portfolio",
+        author: { "@id": `${siteUrl}/#person` },
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": `${siteUrl}/#portfolio`,
+        url: siteUrl,
+        name: "Richard Gerum - Portfolio",
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        about: { "@id": `${siteUrl}/#person` },
+        hasPart: projects.map((project) => ({
+          "@type": "CreativeWork",
+          "@id": absoluteUrl(`/projects/${project.id}#project`),
+          name: project.text,
+          url: absoluteUrl(`/projects/${project.id}`),
+          keywords: project.tags,
+          image: absoluteUrl(project.image ?? `/${project.id}/title.jpg`),
+        })),
+      },
+    ],
+  };
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <main className={styles.main}>
         <ProfilePicture />
         <h1 className={styles.about_me}>About Me</h1>
@@ -62,11 +110,43 @@ export default function Page() {
 }
 
 function ProjectList() {
-  const links: ProjectLink[] = [
+  const links = getProjects();
+
+  return (
+    <>
+      <ol className={styles2.proj_list}>
+        {links.map(({ text, id, image }) => (
+          <li key={id}>
+            <Link className={styles2.proj_entry} href={"/projects/" + id}>
+              <div className={styles2.proj_title}>{text}</div>
+              <div className={styles2.proj_image}>
+                <Image
+                  width={200}
+                  height={200}
+                  src={image ?? `/${id}/title.jpg`}
+                  alt={`${text} preview`}
+                />
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ol>
+    </>
+  );
+}
+
+function getProjects(): ProjectLink[] {
+  return [
     {
       id: "atrium",
       text: "Atrium",
       tags: ["typescript", "react", "nextjs", "convex", "clerk"],
+    },
+    {
+      id: "verbalane",
+      text: "Verbalane",
+      image: "/verbalane/title.png",
+      tags: ["react", "language learning", "text-to-speech"],
     },
     {
       id: "barudion",
@@ -103,26 +183,4 @@ function ProjectList() {
       tags: ["python", "matplotlib", "Qt", "code generation"],
     },
   ];
-
-  return (
-    <>
-      <ol className={styles2.proj_list}>
-        {links.map(({ text, id }) => (
-          <li key={id}>
-            <Link className={styles2.proj_entry} href={"/projects/" + id}>
-              <div className={styles2.proj_title}>{text}</div>
-              <div className={styles2.proj_image}>
-                <Image
-                  width={200}
-                  height={200}
-                  src={`/${id}/title.jpg`}
-                  alt={`${text} preview`}
-                />
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ol>
-    </>
-  );
 }

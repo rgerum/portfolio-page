@@ -1,10 +1,11 @@
 ---
 title: Pylustrator
 description: Interactive figure styling of Matplotlib figures for publication.
+lastModified: 2024-04-27T20:07:52-04:00
 links:
-    github: https://github.com/rgerum/pylustrator
-    docs: https://pylustrator.readthedocs.io/en/latest/
-    publication: https://doi.org/10.21105/joss.01989
+  github: https://github.com/rgerum/pylustrator
+  docs: https://pylustrator.readthedocs.io/en/latest/
+  publication: https://doi.org/10.21105/joss.01989
 tags: python, matplotlib, Qt, code generation
 ---
 
@@ -18,12 +19,12 @@ This workflow is error-prone as data can be accidentally modified and tedious if
 To solve this problem I developed Pylustrator and interactive plot editor directly on top of Matplotlib. The changes to
 the figure are saved as python code, so changing the underlying data or reproducing the plot is a breeze.
 
+<Tags />
 
-<Tags/>
-
-<Video id="xXPI4LLrNuM"/>
+<Video id="xXPI4LLrNuM" />
 
 ## Challenge
+
 To be really useful as a method to style matplotlib plots, the software needed to be deeply integrated with matplotlib.
 It required be to acquire a deep understanding of the internal works of matplotlib to connect and intercept the
 functionality at the right places.
@@ -44,16 +45,17 @@ monkey patching the Matplotlib functions.
 import pylustrator
 pylustrator.start()
 ```
+
 When loading the interface Pylustrator parses from calling python file Pylustrator's previous changes. All user
 interactions are recorded and when saving merged together and joined with the previous changes.
 
 The code that Pylustrator generates is pure Matplotlib code, so it can be shipped without Pylustrator as a dependency.
 
-<ImageNamed name="pylustrator_figure1"/>
+<ImageNamed name="pylustrator_figure1" />
 
 ## Interface
 
 The user interface is designed using **Qt** which embeds the matplotlib plot. As the matplotlib plot's rendering can
 slow for large plots, QtGraphicsView is used as an overlay of the plot to create more fluent user interactions.
 
-<ImageNamed name="pylustrator_figure2"/>
+<ImageNamed name="pylustrator_figure2" />

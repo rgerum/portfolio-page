@@ -17,6 +17,7 @@ import NavAsideLinks from "@/components/NavAsideLinks";
 import NavAsideProjects from "@/components/NavAsideProjects";
 import ElvisExample from "@/components/ElvisExample";
 import NavAsideWrapper from "@/components/NavAsideWrapper";
+import { absoluteUrl, JsonLd, siteUrl } from "@/helpers/structured-data";
 import type { ExternalLink, Heading } from "@/types/content";
 
 const IMAGES: Record<string, StaticImageData> = {};
@@ -65,7 +66,7 @@ interface CustomMDXProps {
 
 export async function generateStaticParams(): Promise<RouteParams[]> {
   const data = await getDocsData();
-  return data.map((page) => ({ project_name: page }));
+  return data.map((page) => ({ project_name: page.replace(/\.mdx$/, "") }));
 }
 
 export async function generateMetadata({
@@ -81,6 +82,9 @@ export async function generateMetadata({
   return {
     title: `${data.title} - Richard Gerum`,
     description: data.description,
+    alternates: {
+      canonical: absoluteUrl(`/projects/${pagePath}`),
+    },
   };
 }
 
@@ -174,9 +178,28 @@ export default async function Page({ params }: PageProps) {
   const externalLinks: ExternalLink[] = Object.entries(data.links ?? {}).map(
     ([text, id]) => ({ id, text }),
   );
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${absoluteUrl(`/projects/${pagePath}`)}#project`,
+    name: data.title,
+    description: data.description,
+    url: absoluteUrl(`/projects/${pagePath}`),
+    image: absoluteUrl(data.image ?? `/${pagePath}/title.jpg`),
+    dateModified: data.lastModified,
+    keywords: data.tags?.split(",").map((tag) => tag.trim()),
+    author: {
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      name: "Richard Gerum",
+      url: siteUrl,
+    },
+    sameAs: externalLinks.map((link) => link.id),
+  };
 
   return (
     <>
+      <JsonLd data={jsonLd} />
       <main className={styles.main}>
         <ProjectTitle>{data.title}</ProjectTitle>
 

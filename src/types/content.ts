@@ -3,6 +3,8 @@ export interface PageFrontmatter {
   description?: string;
   links?: Record<string, string>;
   tags?: string;
+  image?: string;
+  lastModified?: string | Date;
 }
 
 export interface Heading {

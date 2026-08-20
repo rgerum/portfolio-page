@@ -15,6 +15,7 @@ function ProfilePicture({ ...delegated }: ComponentPropsWithoutRef<"div">) {
           width={size}
           height={size}
           alt={""}
+          loading="eager"
         />
       </div>
       <div className={styles.wrapper} {...delegated}>
@@ -24,6 +25,7 @@ function ProfilePicture({ ...delegated }: ComponentPropsWithoutRef<"div">) {
           width={size}
           height={size}
           alt={"my profile picture"}
+          loading="eager"
         />
       </div>
     </>
